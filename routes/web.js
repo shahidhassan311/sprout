@@ -24,11 +24,12 @@ var mysql = require("mysql");
 var database_connection = require('./db_conn');
 
 var connection = mysql.createConnection({
-    host: "46.101.37.156",
+    host: "192.168.100.106",
     user: "sprout",
     password: "sprout12345",
     database: "sprout"
 });
+
 
 
 require("./../config/passport");
@@ -305,70 +306,70 @@ var privilegeAuthentication = function(req, res, next) {
 };
 
 
-router.get("/sales",privilegeAuthentication, function(req, res, next){
+router.get("/sales", function(req, res, next){
     res.render('modules/sales', {title: 'Sprout'});
 });
-router.get("/accounting", privilegeAuthentication,function(req, res, next){
+router.get("/accounting",function(req, res, next){
     res.render('modules/accounting', {title: 'Sprout'});
 });
-router.get("/calendar", privilegeAuthentication,function(req, res, next){
+router.get("/calendar",function(req, res, next){
     res.render('modules/calendar', {title: 'Sprout'});
 });
-router.get("/dashboards", privilegeAuthentication,function(req, res, next){
+router.get("/dashboards",function(req, res, next){
     res.render('modules/Dashboards', {title: 'Sprout'});
 });
-router.get("/expenses", privilegeAuthentication,function(req, res, next){
+router.get("/expenses",function(req, res, next){
     res.render('modules/Expenses', {title: 'Sprout'});
 });
-router.get("/maintenance", privilegeAuthentication,function(req, res, next){
+router.get("/maintenance",function(req, res, next){
     res.render('modules/Maintenance', {title: 'Sprout'});
 });
-router.get("/timesheet", privilegeAuthentication,function(req, res, next){
+router.get("/timesheet",function(req, res, next){
     res.render('modules/timesheet', {title: 'Sprout'});
 });
-router.get("/notes", privilegeAuthentication, function(req, res, next){
+router.get("/notes", function(req, res, next){
     res.render('modules/notes', {title: 'Sprout'});
 });
-router.get("/repairs", privilegeAuthentication,function(req, res, next){
+router.get("/repairs",function(req, res, next){
     res.render('modules/repairs', {title: 'Sprout'});
 });
-router.get("/inventory", privilegeAuthentication,function(req, res, next){
+router.get("/inventory",function(req, res, next){
     res.render('modules/inventory', {title: 'Sprout'});
 });
-router.get("/manufacturing",privilegeAuthentication, function(req, res, next){
+router.get("/manufacturing", function(req, res, next){
     res.render('modules/manufacturing', {title: 'Sprout'});
 });
-router.get("/leaves",privilegeAuthentication, function(req, res, next){
+router.get("/leaves", function(req, res, next){
     res.render('modules/leaves', {title: 'Sprout'});
 });
-router.get("/employees", privilegeAuthentication,function(req, res, next){
+router.get("/employees",function(req, res, next){
     res.render('modules/employees', {title: 'Sprout'});
 });
-router.get("/projects",privilegeAuthentication, function(req, res, next){
+router.get("/projects", function(req, res, next){
     res.render('modules/projects', {title: 'Sprout'});
 });
-router.get("/attendance", privilegeAuthentication,function(req, res, next){
+router.get("/attendance",function(req, res, next){
     res.render('modules/attendance', {title: 'Sprout'});
 });
-router.get("/test",privilegeAuthentication, function(req, res, next){
+router.get("/test", function(req, res, next){
     res.render('modules/test', {title: 'Sprout'});
 });
-router.get("/recruitment",privilegeAuthentication, function(req, res, next){
+router.get("/recruitment", function(req, res, next){
     res.render('modules/recruitment', {title: 'Sprout'});
 });
 router.get("/setting", function(req, res, next){
     res.render('modules/Setting', {title: 'Sprout'});
 });
-router.get("/discuess", privilegeAuthentication, function(req, res, next){
+router.get("/discuess", function(req, res, next){
     res.render('modules/discuess', {title: 'Sprout'});
 });
 router.get("/purchase", function(req, res, next){
     res.render('modules/purchase', {title: 'Sprout'});
 });
-router.get("/pointofsale", privilegeAuthentication, function(req, res, next){
+router.get("/pointofsale", function(req, res, next){
     res.render('modules/Pointofsale', {title: 'Sprout'});
 });
-router.get("/welcome", privilegeAuthentication, function(req, res, next){
+router.get("/welcome", function(req, res, next){
     res.render('modules/welcome', {title: 'Sprout'});
 });
 //add users

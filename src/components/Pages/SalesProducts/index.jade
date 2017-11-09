@@ -1,3 +1,36 @@
 .quotation
-    DashboardController( v-bind:save='false',v-bind:heading="salesproducts",v-bind:createbtn='true',v-bind:importbtn='false', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='true',v-bind:paginbtn2='true',v-bind:firstbtn='true',v-bind:secondbtn='true',v-bind:searchbar='true')
+    DashboardController(v-bind:actionbtn='true',v-bind:duplicatedropbtn='true',v-bind:deletedropbtn='true',
+    v-bind:planorderbtn='true',v-bind:createbtn='true',v-bind:heading="nextactivity",v-bind:searchbar='true',
+    v-bind:dropdownbtn1='true',v-bind:dropdownbtn2='true',v-bind:dropdownbtn3='true',v-bind:importbtn='true',
+    v-bind:links="btnlinks", v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='true',v-bind:paginbtn2='true'
+    v-bind:firstbtn='true',v-bind:secondbtn='true',v-bind:fifthbtn='false',v-bind:thirdbtn='false',
+    v-bind:fourthbtn='false')
+        .col-sm-6(style='padding:0px;')(slot='heading')
+            h4.samodashheading(style="font-size: 18px;") Product
+        span.o_pager_value(slot='page') {{counter}}
+            |  /
+            span.o_pager_limit(style="padding-right: 6px;") {{num}}
+            span.btn-group.btn-group-sm
+                button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous#num10(@click="select4()",style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='p')
+                button.fa.fa-chevron-right.btn.btn-icon.o_pager_next#num01(@click="select3()",style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='n')
     Product_Boxes
+        .col-md-3(style='padding-right: 0px;display: -webkit-inline-box;' slot='pro_box')(v-for="row in options")
+            .table
+                router-link(v-bind:to="'/sales/salesproductview/'+row.id" , style='text-decoration: none; color: black;')
+                    .row
+                        .col-xs-5
+                            .img
+                                img.img-responsive(style='width:80px;')(src='/images/orange.png')
+                        .col-xs-6.offset-sm-1
+                            strong
+                                | {{row.name}}
+                            br(style='font-size:10px;')
+                            |   Price:{{row.cost}}
+
+
+
+
+
+
+
+

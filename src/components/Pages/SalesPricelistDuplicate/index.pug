@@ -1,0 +1,56 @@
+.salespricelists
+    DashboardController(v-bind:savedbtn='true',v-bind:heading="pricelists",v-bind:createbtn='false',v-bind:discardbtn='true', v-bind:links="btnlinks",v-bind:num1='false',v-bind:num2='false',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false')
+    //Modal(v-bind:save='false',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg"',v-bind:links="btnlinks",v-bind:select="true",v-bind:cancel="true")
+    //    .input-group.stylish-input-group(style='height: 35px;')
+    //        input.form-control(type='text', placeholder='Search', style="height: 40px;")
+    //        span.input-group-addon(style="box-shadow: 0 0 0;border-color: #ccc;")
+    //            button#searchbutton(type='submit')
+    //                span.fa.fa-search-plus.samofa
+    //    .o_pager(style='margin-left: 90%;padding-bottom: 14px;')
+    //        div
+    //            span.o_pager_value 1-6
+    //            |  /
+    //            span.o_pager_limit 6
+    //            span.btn-group.btn-group-sm
+    //                button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous(type='button', accesskey='p', disabled='')
+    //                button.fa.fa-chevron-right.btn.btn-icon.o_pager_next(type='button', accesskey='n', disabled='')
+    //    TableMain(v-bind:tableheader='tableheader',v-bind:tablefoot='tablefooter', v-bind:tabledata="tabledata")
+
+    .o_content(style='margin-left: -15px;margin-right: -15px;')
+        .o_view_manager_content
+            .o_form_view.o_form_readonly
+                .o_form_sheet_bg
+                    .o_form_sheet
+                        .oe_button_box(name='button_box')
+                            button.btn.btn-sm.oe_stat_button(type='button')
+                                .fa.fa-fw.fa-archive.o_button_icon
+                                .o_stat_info.o_form_field(data-original-title='', title='')
+                                    span.o_stat_text.o_not_hover.text-success Active
+                                    span.o_stat_text.o_hover.text-danger Archive
+                        .oe_title
+                            h1
+                                input.o_form_input.o_form_field.o_form_required.topinput(v-model='pricelist_name', placeholder='e.g. USD Retailers', type='text')
+                                button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
+                        table.o_group.o_inner_group
+                            tbody
+                                tr
+                                    td.o_td_label(colspan='1')
+                                        label.o_form_label
+                                            | Discount policy
+                                    td(colspan='1', style='width: 100%;')
+                                        .o_form_field_radio(style='display: block;')
+                                            .o_radio_item
+                                                input#radio59_with_discount.o_form_radio( v-model='discount_poli',type='radio', name='radio59', value='Discount included in the price')
+                                                label.o_form_label(for='radio59_with_discount') Discount included in the price
+                                            .o_radio_item
+                                                input#radio59_without_discount.o_form_radio(v-model='discount_poli',type='radio', name='radio59', value='Show public price & discount to the customer')
+                                                label.o_form_label(for='radio59_without_discount') Show public price & discount to the customer
+                                tr
+                                    td.o_td_label(colspan='1')
+                                        label.o_form_label
+                                            | Country Groups
+                                    td
+                                        .tableset
+                                            TableMain(v-bind:tableheader='tableheader', v-bind:tabledata="tabledata", v-bind:tablefoot="tablefooter")
+
+

@@ -75,6 +75,7 @@ export default{
         "exportbtn",
         "deletebtn",
         "assignedtasksbtnlink",
+        "plainorderbtn",
     ],
     data(){
         return {

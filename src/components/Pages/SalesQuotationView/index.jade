@@ -1,35 +1,170 @@
 .salesorderquotation
-    DashboardController(v-bind:editbtn='true',v-bind:heading="quotation",v-bind:createbtn='true',v-bind:importbtn='false',v-bind:Attachmentbtn='true',v-bind:printbtn='true',v-bind:actionbtn='true', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false')
+    DashboardController(v-bind:editbtn='true',v-bind:heading="quotation",v-bind:createbtn='true',v-bind:importbtn='false',v-bind:deletebtn='true',v-bind:Attachmentbtn='true',v-bind:printbtn='true',v-bind:actionbtn='true', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false')
+        .col-sm-6(style='padding:0px;' ,slot='heading')
+            h4.samodashheading(style="font-size: 18px;") Sales / {{ name }}
+    Modal(v-bind:save='true', v-bind:saveTigger="sendbyemail_trigger" , v-bind:discard='true',v-bind:heading="modal1",v-bind:modal='"bd-example-modal-lg"')
+        .modal-body.o_act_window
+            .o_view_manager_content
+                .o_form_view.o_form_nosheet.o_form_editable.oe_form_dirty
+                    table.o_group.o_inner_group
+                        tbody
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label(for='o_field_input_113')
+                                        | Recipients
+                                td(colspan='1', style='width: 100%;')
+                                    div(attrs="{'invisible': [('is_log', '=', True)]}")
+                                        span.o_form_invisible(attrs="{'invisible': [('composition_mode', '!=', 'mass_mail')]}")
+                                            strong Email mass mailing
+                                            |  on
+                                            span(attrs="{'invisible': [('use_active_domain', '=', True)]}") the selected records
+                                            span.o_form_invisible(attrs="{'invisible': [('use_active_domain', '=', False)]}") the current search filter
+                                            | .
+                                        span(attrs="{'invisible':['|', ('model', '=', False), ('composition_mode', '=', 'mass_mail')]}") Followers of the document and
+                                        .o_form_field_many2manytags.o_form_field
+                                            span.badge.dropdown.o_tag_color_10(data-color='10', data-id='8', data-index='0')
+                                                span.o_badge_text(title='Agrolait') Agrolait
+                                                span.fa.fa-times.o_delete
+                                            .o_form_field_many2one.o_form_field
+                                                .o_form_input_dropdown
+                                                    input.o_form_input.ui-autocomplete-input(type='text', placeholder='Add contacts to notify...', autocomplete='off')
+                                                    span.o_dropdown_button(draggable='false')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label(for='o_field_input_114')
+                                        | Subject
+                                td(colspan='1', style='width: 100%;')
+                                    input#o_field_input_114.o_form_input.o_form_field.o_form_required(placeholder='Subject...', type='text')
+                    textarea(name='editor1', id='editor1', rows='10', cols='80')
+                        | Dear Michel Fletcher (Agrolait) ,
+                        br
+                        | Here is your quotation SO009 amounting in 115.0 pkr from YourCompany.
+                        br
+                        br
+                        br
+                        | You can reply to this email if you have any questions.
+                        br
+                        | Thank you,
+                        br
+                        br
+                        br
+                        br
+                        --
+                        | Administrator
+
+
+    Modal(v-bind:create_view_invoice='true',v-bind:create_invoice='true', v-bind:CreateViewInvoices="createviewinvoices_trigger" , v-bind:CreateInvoices="Createinvoices_trigger" , v-bind:discard='true',v-bind:heading="modal2", v-bind:modal='"bd-example-modal-lg1"')
+        .modal-body.o_act_window
+            .o_view_manager_content
+                .o_form_view.o_form_nosheet.o_form_editable
+                    p.oe_grey
+                        | Invoices will be created in draft so that you can review
+                        | them before validation.
+                    table.o_group.o_inner_group
+                        tbody
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_invisible(for='o_field_input_514')
+                                        | # of Orders
+                                td(colspan='1', style='width: 100%;')
+                                    span.o_form_field.o_form_invisible.o_form_field_number 1
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.oe_inline(for='o_field_input_515')
+                                        | What do you want to invoice?
+                                td(colspan='1', style='width: 100%;')
+                                    .o_form_field_radio.o_vertical.oe_inline.o_form_field.o_form_required
+                                        .o_radio_item
+                                            input#radio520_delivered.o_form_radio(type='radio', name='radio520', value='delivered')
+                                            label.o_form_label(for='radio520_delivered') Invoiceable lines
+                                        .o_radio_item
+                                            input#radio520_all.o_form_radio(type='radio', name='radio520', value='all')
+                                            label.o_form_label(for='radio520_all') Invoiceable lines (deduct down payments)
+                                        .o_radio_item
+                                            input#radio520_percentage.o_form_radio(type='radio', name='radio520', value='percentage')
+                                            label.o_form_label(for='radio520_percentage') Down payment (percentage)
+                                        .o_radio_item
+                                            input#radio520_fixed.o_form_radio(type='radio', name='radio520', value='fixed')
+                                            label.o_form_label(for='radio520_fixed') Down payment (fixed amount)
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.oe_inline.o_form_invisible(for='o_field_input_516')
+                                        | Down Payment Product
+                                td(colspan='1', style='width: 100%;')
+                                    .o_form_field_many2one.o_with_button.oe_inline.o_form_field.o_form_invisible
+                                        .o_form_input_dropdown
+                                            input#o_field_input_516.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
+                                            span.o_dropdown_button(draggable='false')
+                                        button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_517', data-original-title='', title='')
+                                        | Down Payment Amount
+                                td(colspan='1', style='width: 100%;')
+                                    div(attrs="{'invisible': [('advance_payment_method', 'not in', ('fixed','percentage'))]}")
+                                        .o_form_field_monetary.oe_inline.o_form_field.o_form_required.o_form_field_number
+                                            input#o_field_input_517.o_form_input(type='text')
+                                        label.o_form_label.oe_inline
+                                            | %
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help.oe_inline.o_form_invisible(for='o_field_input_518', data-original-title='', title='')
+                                        | Income Account
+                                td(colspan='1', style='width: 100%;')
+                                    .o_form_field_many2one.o_with_button.oe_inline.o_form_field.o_form_invisible
+                                        .o_form_input_dropdown
+                                            input#o_field_input_518.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
+                                            span.o_dropdown_button(draggable='false')
+                                        button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help.oe_inline.o_form_invisible(for='o_field_input_519', data-original-title='', title='')
+                                        | Customer Taxes
+                                td(colspan='1', style='width: 100%;')
+                                    .o_form_field_many2manytags.oe_inline.o_form_field.o_form_invisible
+                                        span.badge.dropdown.o_tag_color_10(data-color='10', data-id='1', data-index='0')
+                                            span.o_badge_text(title='Tax 15.00%') Tax 15.00%
+                                            span.fa.fa-times.o_delete
+                                        .o_form_field_many2one.oe_inline.o_form_field(data-original-title='', title='')
+                                            .o_form_input_dropdown
+                                                input.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
+                                                span.o_dropdown_button(draggable='false')
+
+
     .row
         .col-md-12.pull-left.samotopcontroller
             .col-md-5.pull-left
-                .col-xs-2.pull-left
-                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -32px;background-color: #9493bc;color: white;') Create Invoice
-                .col-xs-2.pull-left
-                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -7px;') Print
-                .col-xs-2.pull-left
-                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -41px;') Send by Email
-                .col-xs-2.pull-left
-                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -19px;') Cancel
-                .col-xs-2.pull-left
-                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -42px;') Lock
-
-
-
+                .col-xs-2.pull-left#sendbyemail
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -49px;background-color: rgb(128, 127, 169);color: white;' , data-toggle='modal', data-target='.bd-example-modal-lg') Send by Email
+                .col-xs-2.pull-left#print
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -38px;') Print
+                .col-xs-2.pull-left#create_invoice(style='display:none')
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -88px;' data-toggle='modal', data-target='.bd-example-modal-lg1') Create Invoice
+                .col-xs-2.pull-left#confirmsales
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left:-74px;background-color: white;color: black;' , @click='confirmsales("SalesOrder")') Confirm Sale
+                .col-xs-2.pull-left#cancel
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -70px;background-color: white;color: black;' ,@click='cancelsales("Cancelled")') Cancel
+                .col-xs-2.pull-left#settoquotation(style='display:none')
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -28px;background-color: white;color: black;' ,@click='settoquotation("Quotation")') Set to Quotation
+                .col-xs-2.pull-left#lock(style='display:none')
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left:-105px;background-color: white;color: black;', @click='locked("Locked")') lock
             .col-md-1.pull-left
             .col-md-3.pull-left
             .col-md-3.pull-right
                 .btn-group.btn-breadcrumb.samobreadcrum1
-                    a.btn.btn-primary.samobreadbutt(href='#') Qualified
-                    a.btn.btn-primary.samobreadbutt1(href='#') New
-                    a.btn.btn-primary.samobreadbutt(href='#') Purchase
+                    a.btn.btn-primary.samobreadbutt.link#quotation_j(href='#') Quotation
+                    a.btn.btn-primary.samobreadbutt.link#quotation_sent_j(href='#') Quotation Sent
+                    a.btn.btn-primary.samobreadbutt.link#sales_order_j(href='#') Sales Order
+                    a.btn.btn-primary.samobreadbutt.link#cancelled_j(href='#') cancelled
+                    a.btn.btn-primary.samobreadbutt.link#locked_j(href='#' style='display:none') locked
+
     .o_content.samocontent(style='margin-left: -15px;margin-right: -15px;')
         .o_view_manager_content#create
             .o_form_view.o_form_readonly
                 .o_form_sheet_bg
                     .o_form_sheet
                         .tophead
-                            h4 SO014
+                            h4 QN{{ id }}
                         br
                         .col-xs-12.request_inner1
                             .xyz
@@ -38,15 +173,11 @@
                                         label(style='font-size:15px;padding-right:25px;')
                                             | Customer
                                         br
-
-
-
                                 .col-xs-4.osahass(style='')
                                     .two
                                         router-link(to='Vendormenu')
-                                            label(style='font-size:13px;')
-                                                | China Export
-                                                | ChinaShanghai52 Chop Suey street 200000
+                                            label(style='font-size:13px;') {{ name }}
+
                                             br
 
                                 .col-xs-3.request_inner2(style='font-weight: bold;')
@@ -64,12 +195,14 @@
                                 .col-xs-2.osahass(style='')
                                     .two
                                         label(style='font-size:13px;')
-                                        label(style='font-size:13px;')
-                                            | Public Pricelist (USD)
+                                            | {{expiration_date}}
                                         br
+                                        label(style='font-size:13px;')
+                                            | {{pricelist_name}}
                                         br
                                         router-link(to='profile')
                                             label(style='font-size:13px;')
+                                                | {{payment_terms}}
 
 
                         .o_notebook
@@ -133,12 +266,13 @@
                                                             | Incoterms
                                                     td(colspan='1', style='width: 100%;')
                                                         span.o_form_field.o_form_field_empty
+                                                        | {{incoterms}}
                                                 tr
                                                     td.o_td_label(colspan='1')
                                                         label.o_form_label
                                                             | Shipping Policy
                                                     td(colspan='1', style='width: 100%;')
-                                                        span.o_form_field.o_form_required Deliver each product when available
+                                                        span.o_form_field.o_form_required {{shiping_policy}}
                                         table.o_group.o_inner_group.o_group_col_6
                                             tbody
                                                 tr
@@ -150,7 +284,7 @@
                                                         label.o_form_label
                                                             | Salesperson
                                                     td(colspan='1', style='width: 100%;')
-                                                        a.o_form_uri.o_form_field(href='#') Administrators
+                                                        a.o_form_uri.o_form_field(href='#') {{username}}
                                                 tr
                                                     td.o_td_label(colspan='1')
                                                         label.o_form_label.o_form_label_empty
@@ -162,19 +296,20 @@
                                                         label.o_form_label
                                                             | Sales Team
                                                     td(colspan='1', style='width: 100%;')
-                                                        a.o_form_uri.o_form_field(href='#') Direct Sales
+                                                        a.o_form_uri.o_form_field(href='#') {{ sales_team_name}}
                                                 tr
                                                     td.o_td_label(colspan='1')
                                                         label.o_form_label.o_form_label_empty.o_form_label_false
                                                             | Customer Reference
                                                     td(colspan='1', style='width: 100%;')
-                                                        span.o_form_field.o_form_field_empty
-                                                tr
-                                                    td.o_td_label(colspan='1')
-                                                        label.o_form_label
-                                                            | Company
-                                                    td(colspan='1', style='width: 100%;')
-                                                        a.o_form_uri.o_form_field(href='#') Alupak Industriess
+                                                        span.o_form_field
+                                                            | {{username}} sadsa
+                                                //tr
+                                                //    td.o_td_label(colspan='1')
+                                                //        label.o_form_label
+                                                //            | Company
+                                                //    td(colspan='1', style='width: 100%;')
+                                                //        a.o_form_uri.o_form_field(href='#') Alupak Industriess
                                                 tr
                                                     td.o_td_label(colspan='1')
                                                         label.o_form_label.o_form_label_help.o_form_invisible.o_form_label_empty.o_form_label_false
@@ -198,13 +333,13 @@
                                                         label.o_form_label.o_form_label_empty.o_form_label_false
                                                             | Fiscal Position
                                                     td(colspan='1', style='width: 100%;')
-                                                        a.o_form_uri.o_form_field.o_form_field_empty(href='#')
+                                                        a.o_form_uri.o_form_field(href='#') {{fiscal_position_name}}
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_invisible
+                                                        label.o_form_label
                                                             | Invoice Status
                                                     td(colspan='1', style='width: 100%;')
-                                                        span.o_form_field.o_form_invisible Nothing to Invoice
+                                                        span.o_form_field {{status}}
                                         table.o_group.o_inner_group.o_form_invisible.o_group_col_6
                                             tbody
                                                 tr

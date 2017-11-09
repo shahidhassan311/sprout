@@ -381,7 +381,7 @@ body {
     background-color: white;
 }
 .row{
-    width: 1586px;
+    /*width: 1586px;*/
 }
 
 
@@ -11537,4 +11537,12 @@ a.o_form_view .oe_form_box_info:hover, a.o_form_view .oe_form_box_info:focus {
     overflow: auto;
     height: 80vh;
 }
+a.active{
+    background-color: #7c7bad !important;
+    color:white !important;
+}
+a.focus{
+    border:none !important;
+}
+
 

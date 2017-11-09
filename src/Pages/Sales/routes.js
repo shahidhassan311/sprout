@@ -75,7 +75,12 @@ import SalesOrderGridView   from "./../../components/Pages/SalesOrderGridView/Sa
 import SalesofInvoiceEdit   from "./../../components/Pages/SalesofInvoiceEdit/SalesofInvoiceEdit.vue"
 import SalesDashboardMeeting   from "./../../components/Pages/SalesDashboardMeeting/SalesDashboardMeeting.vue"
 import SalesActivityEdit  from "./../../components/Pages/SalesActivityEdit/SalesActivityEdit.vue"
+import SalesQuotationsCreates  from "./../../components/Pages/SalesQuotationsCreates/SalesQuotationsCreates.vue"
 import Test  from "./../../components/Pages/Test/Test.vue"
+import SalesCustomerDuplicate  from "./../../components/Pages/SalesCustomerDuplicate/SalesCustomerDuplicate.vue"
+import SalesPricelistDuplicate  from "./../../components/Pages/SalesPricelistDuplicate/SalesPricelistDuplicate.vue"
+import SalesActivityDuplicate  from "./../../components/Pages/SalesActivityDuplicate/SalesActivityDuplicate.vue"
+import SalesTeamDuplicate  from "./../../components/Pages/SalesTeamDuplicate/SalesTeamDuplicate.vue"
 
 
 const routes = [
@@ -85,6 +90,7 @@ const routes = [
                 children: [
                     { path: '', component: SalesDahboard},
                     { path: 'customers', component: Customers},
+                    { path: 'quotationscreates', component: SalesQuotationsCreates},
                     { path: 'nextactivities', component: NextActivities},
                     { path: 'vendormenu', component: Vendormenu},
                     { path: 'pipeline', component: Pipeline},
@@ -105,14 +111,14 @@ const routes = [
                     { path: 'salesnextactivitiescreate', component: SalesNextActivitiesCreate},
                     { path: 'scheduleanactivity', component: ScheduleanActivity},
                     { path: 'salespipelinereport', component: SalesPipelinereport},
-                    { path: 'Salesnextactivityview', component: SalesNextActivityView},
-                    { path: 'salesquotationview', component: SalesQuotationView},
-                    { path: 'salesorderview', component: SalesOrderView},
-                    { path: 'salesproductview', component: SalesProductView},
+                    { path: 'Salesnextactivityview/:id', component: SalesNextActivityView},
+                    { path: 'salesquotationview/:id', component: SalesQuotationView},
+                    { path: 'salesorderview/:id', component: SalesOrderView},
+                    { path: 'salesproductview/:id', component: SalesProductView},
                     { path: 'salesreportactivity', component: SalesReportActivity},
                     { path: 'salesreport', component: SalesReport},
                     { path: 'salespipelineview', component: SalesPipelineView},
-                    { path: 'salescustomeredit', component: SalesCustomerEdit},
+                    { path: 'salescustomeredit/:id', component: SalesCustomerEdit},
                     { path: 'salesnextactivityimport', component: SalesNextActivityImport},
                     { path: 'productedit', component: ProductEdit},
                     { path: 'salesquotationimport', component: SalesQuotationImport},
@@ -124,21 +130,22 @@ const routes = [
                     { path: 'salesofinvoiceimport', component: SalesofInvoiceImport},
                     { path: 'ordertoupsellcreate', component: OrdertoUpsellCreate},
                     { path: 'salesordertoupsellimport', component: SalesOrdertoUpsellImport},
-                    { path: 'salespricelistsview', component: SalesPricelistsView},
+                    { path: 'salespricelistsview/:id', component: SalesPricelistsView},
                     { path: 'salespricelistscreate', component: SalesPricelistsCreate},
                     { path: 'salespricelistsimport', component: SalespricelistsImport},
-                    { path: 'salesactivityview', component: SalesActivityView},
+                    { path: 'salesactivityview/:id', component: SalesActivityView},
                     { path: 'salesactivitycreate', component: SalesActivityCreate},
                     { path: 'salesactivityimport', component: SalesActivityImport},
-                    { path: 'salesteamview', component: SalesTeamView},
+                    { path: 'salesteamview/:id', component: SalesTeamView},
                     { path: 'salesteamimport', component: SalesTeamImport},
-                    { path: 'salescustomerview', component: SalesCustomerView},
-                    { path: 'salesnextactivityedit', component: SalesNextActivityEdit},
-                    { path: 'salesquotationedit', component: SalesQuotationEdit},
-                    { path: 'salesorderedit', component: SalesOrderEdit},
-                    { path: 'salesproductedit', component: SalesProductEdit},
+                    { path: 'salescustomerview/:id', component: SalesCustomerView},
+                    { path: 'salescustomerduplicate/:id', component: SalesCustomerDuplicate},
+                    { path: 'salesnextactivityedit/:id', component: SalesNextActivityEdit},
+                    { path: 'salesquotationedit/:id', component: SalesQuotationEdit},
+                    { path: 'salesorderedit/:id', component: SalesOrderEdit},
+                    { path: 'salesproductedit/:id', component: SalesProductEdit},
                     { path: 'salesteamcreate', component: SalesTeamCreate},
-                    { path: 'salesteamedit', component: SalesTeamEdit},
+                    { path: 'salesteamedit/:id', component: SalesTeamEdit},
                     { path: 'salesquotationcreate', component: SalesQuotationCreate},
                     { path: 'salescustomeropportunities', component: SalesCustomerOpportunities},
                     { path: 'pipelinecomponent', component: PipelineComponent},
@@ -146,7 +153,8 @@ const routes = [
                     { path: 'salescustomerinvoice', component: SalesCustomerInvoice},
                     { path: 'salescustomertask', component: SalesCustomerTask},
                     { path: 'salescustomerissue', component: SalesCustomerIssue},
-                    { path: 'salespricelistedit', component: SalesPriceListEdit},
+                    { path: 'salespricelistedit/:id', component: SalesPriceListEdit},
+                    { path: 'salespricelistduplicate/:id', component: SalesPricelistDuplicate},
                     { path: 'salesnewquotation', component: SalesNewQuotation},
                     { path: 'salescustomerlistview', component: SalesCustomerListView},
                     { path: 'salescustomerimport', component: SalesCustomerImport},
@@ -154,11 +162,13 @@ const routes = [
                     { path: 'salesproductlistview', component: SalesProductListView},
                     { path: 'salesproductimport', component: SalesProductImport},
                     { path: 'salesnextactivitylistview', component: SalesNextActivityListView},
-                    { path: 'salesquotationgridview', component: SalesQuotationGridView},
+                    { path: 'salesquotationgridview/:id', component: SalesQuotationGridView},
                     { path: 'salesordergridview', component: SalesOrderGridView},
                     { path: 'salesofinvoiceedit', component: SalesofInvoiceEdit},
                     { path: 'dashboardmeeting', component: SalesDashboardMeeting},
-                    { path: 'salesactivityedit', component: SalesActivityEdit},
+                    { path: 'salesactivityedit/:id', component: SalesActivityEdit},
+                    { path: 'salesactivityduplicate/:id', component: SalesActivityDuplicate},
+                    { path: 'salesteamduplicate/:id', component: SalesTeamDuplicate},
 
                 ]
             },

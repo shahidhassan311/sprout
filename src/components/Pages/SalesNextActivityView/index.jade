@@ -1,5 +1,15 @@
 .customers
-    DashboardController(v-bind:heading="nextactivity",v-bind:savedbtn='false',v-bind:Attachmentbtn='true',v-bind:actionbtn='true',v-bind:editbtn='true',v-bind:editform='createbtn',v-bind:createbtn='true', v-bind:links="btnlinks")
+    DashboardController(v-bind:heading="nextactivity",v-bind:savedbtn='false',v-bind:Attachmentbtn='true',v-bind:actionbtn='true',v-bind:editbtn='true',v-bind:editform='createbtn',v-bind:createbtn='true', v-bind:links="btnlinks",v-bind:deletebtn='true',v-bind:duplicate='true')
+        .col-sm-6(style='padding:0px;' ,slot='heading')
+            h4.samodashheading(style="font-size: 18px;display: inline-block;padding-right: 5px;") Next activities /
+            span {{opp_title}}
+        span.o_pager_value(slot='page') {{counter}}
+            |  /
+            span.o_pager_limit(style="padding-right: 6px;") {{num}}
+
+            span.btn-group.btn-group-sm
+                button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous#num10(@click="counter--",style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='p')
+                button.fa.fa-chevron-right.btn.btn-icon.o_pager_next#num01(@click="counter++",style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='n')
     Modal(v-bind:close='true',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg"')
         .modal-body.o_act_window
             .o_view_manager_content
@@ -56,25 +66,23 @@
 
     .row
         .col-md-12.pull-left.samotopcontroller
-            .col-md-5.pull-left
-                .col-xs-3.pull-left
-                    router-link(to='salesnewquotation')
-                        button.btn.btn-primary.samobutton2(type='button',style='margin-left: -32px;') New Quotation
-                .col-xs-3.pull-left
-                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -59px;') Mark Won
-                .col-xs-3.pull-left
-                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: -113px;') Mark LOst
-                .col-xs-3.pull-left
-                    button.btn.btn-primary.mark(type='button',data-toggle='modal', data-target='.bd-example-modal-lg') Log Activity
+            .col-md-5.pull-left(style='padding: 0px;')
+                .col-xs-3.pull-left(style='padding: 0px;width: 19%;')
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: 7px;') New Quotation
+                .col-xs-3.pull-left(style='padding: 0px;width: 15%;')
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: 7px;') Mark Won
+                .col-xs-3.pull-left(style='padding: 0px;width: 16%;')
+                    button.btn.btn-primary.samobutton2(type='button',style='margin-left: 9px;,',data-toggle='modal', data-target='.marklostmodal') Mark LOst
+                .col-xs-3.pull-left(style='padding: 0px;width: 19%;')
+                    button.btn.btn-primary.mark(type='button',style='margin-left: 5px;') Log Activity
 
 
             .col-md-1.pull-left
             .col-md-3.pull-left
             .col-md-3.pull-right
-                .btn-group.btn-breadcrumb.samobreadcrum1
-                    a.btn.btn-primary.samobreadbutt(href='#') Qualified
-                    a.btn.btn-primary.samobreadbutt1(href='#') New
-                    a.btn.btn-primary.samobreadbutt(href='#') Purchase
+                .btn-group.btn-breadcrumb.samobreadcrum1(v-for='optionasd, index in pipeline_name_drop')
+                    a.btn.btn-primary.samobreadbutt.link( v-model='pipeline_name',v-on:click="select2(optionasd.id)")
+                        | {{ optionasd.name }}
 
     .o_content
         .o_view_manager_content
@@ -112,25 +120,25 @@
 
 
                         .oe_title
-                            label.o_form_label.oe_edit_only(for='o_field_input_152')
+                            label.o_form_label.oe_edit_only
                                 | Opportunity
                             h1
-                                span.o_form_field.o_form_required(style='font-size: 1.5rem;') Need to customize the solution
+                                span.o_form_field.o_form_required(style='font-size: 1.5rem;') {{opp_title}}
                             h2.o_row
                                 div
-                                    label.o_form_label.oe_edit_only(for='o_field_input_153')
+                                    label.o_form_label.oe_edit_only
                                         | Expected Revenue
                                     .o_row
                                         a.o_form_uri.o_form_field.o_form_invisible(href='#') EUR
                                         span.o_form_field.o_form_field_number
-                                            | 4,500.00
+                                            | {{exp_rev}}
                                             span €
                                         span.oe_grey  at
                                 div
-                                    label.o_form_label.oe_edit_only(for='o_field_input_154')
+                                    label.o_form_label.oe_edit_only
                                         | Probability
                                     .o_row
-                                        span.o_form_field.o_form_field_number 30
+                                        span.o_form_field.o_form_field_number {{prob}}
                                         span %
 
                         .o_group
@@ -138,75 +146,74 @@
                                 tbody
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false(for='o_field_input_360', data-original-title='', title='')
+                                            label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false(data-original-title='', title='')
                                                 | Customer
                                         td(colspan='1', style='width: 100%;')
-                                            a.o_form_uri.o_form_field.o_form_field_empty(href='#')
+                                            a.o_form_uri.o_form_field(href='#') {{customer_name_name}}
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help(for='o_field_input_361', data-original-title='', title='')
+                                            label.o_form_label.o_form_label_help(data-original-title='', title='')
                                                 | Email
                                         td(colspan='1', style='width: 100%;')
-                                            a.o_form_uri.o_text_overflow.o_form_field(href='mailto:henry@elight.com', target='_blank') henry@elight.com
+                                            a.o_form_uri.o_text_overflow.o_form_field(href='mailto:henry@elight.com', target='_blank') {{cus_email}}
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_empty.o_form_label_false(for='o_field_input_362')
+                                            label.o_form_label.o_form_label_empty.o_form_label_false
                                                 | Phone
                                         td(colspan='1', style='width: 100%;')
-                                            span.o_form_field.o_form_field_empty
+                                            span.o_form_field {{phone_num}}
                             table.o_group.o_inner_group.o_group_col_6
                                 tbody
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label(for='o_field_input_363')
+                                            label.o_form_label
                                                 | Next Activity
                                         td(colspan='1', style='width: 100%;')
                                             div
                                                 .o_row.mr16
-                                                    span.o_form_field Call
+                                                    span.o_form_field {{next_act}}
                                                     span.oe_form_field(attrs="{'invisible': ['|', ('next_activity_id', '=', False), ('date_action', '=', False)]}")  on 
-                                                    span.o_form_field_date.o_form_field 03/08/2017
+                                                    span.o_form_field_date.o_form_field {{next_act_date}}
                                                 div
-                                                    span.o_form_field Conf call with technical service
+                                                    span.o_form_field {{next_act_desc}}
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false(for='o_field_input_364', data-original-title='', title='')
+                                            label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false(data-original-title='', title='')
                                                 | Expected Closing
                                         td(colspan='1', style='width: 100%;')
-                                            span.o_form_field_date.o_form_field.o_form_field_empty
+                                            span.o_form_field_date.o_form_field.o_form_field_empty {{expect_close_date}}
                             table.o_group.o_inner_group.o_group_col_6
                                 tbody
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label(for='o_field_input_365')
+                                            label.o_form_label
                                                 | Salesperson
                                         td(colspan='1', style='width: 100%;')
-                                            a.o_form_uri.o_form_field(href='#') Administrators
+                                            a.o_form_uri.o_form_field(href='#') {{sales_person}}
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help(for='o_field_input_366', data-original-title='', title='')
+                                            label.o_form_label.o_form_label_help(data-original-title='', title='')
                                                 | Sales Team
                                         td(colspan='1', style='width: 100%;')
-                                            span.o_form_field Direct Sales
+                                            span.o_form_field {{sale_team_name}}
                             table.o_group.o_inner_group.o_group_col_6
                                 tbody
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label(for='o_field_input_367')
+                                            label.o_form_label
                                                 | Rating
                                         td(colspan='1', style='width: 100%;')
-                                            .o_priority
-                                                fieldset.rating
-                                                    input#star5(type='radio', name='rating', value='5')
-                                                    label(for='star5', title='Rocks!') 5 stars
-                                                    input#star4(type='radio', name='rating', value='4')
-                                                    label(for='star4', title='Pretty good') 4 stars
-                                                    input#star3(type='radio', name='rating', value='3')
-                                                    label(for='star3', title='Meh') 3 stars
+                                            fieldset.rating
+                                                input#star3(type='radio',v-model='rate',name='rating',disabled='disabled')
+                                                label.full(for='star3', title='very high - 3 stars')
+                                                input#star2(type='radio',v-model='rate', name='rating',disabled='disabled')
+                                                label.full(for='star2', title='high - 2 stars')
+                                                input#star1(type='radio',v-model='rate', name='rating',disabled='disabled')
+                                                label.full(for='star1', title='low - 1 star')
 
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help(for='o_field_input_368', data-original-title='', title='')
+                                            label.o_form_label.o_form_label_help(data-original-title='', title='')
                                                 | Tags
                                         td(colspan='1', style='width: 100%;')
                                             .o_form_field_many2manytags.o_form_field
@@ -214,13 +221,13 @@
                                                     span.o_badge_text(title='Information') Information
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_invisible.o_form_label_empty.o_form_label_false(for='o_field_input_369')
+                                            label.o_form_label.o_form_invisible.o_form_label_empty.o_form_label_false
                                                 | Lost Reason
                                         td(colspan='1', style='width: 100%;')
                                             a.o_form_uri.o_form_field.o_form_invisible.o_form_field_empty(href='#')
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_invisible.o_form_label_empty.o_form_label_false(for='o_field_input_370')
+                                            label.o_form_label.o_form_invisible.o_form_label_empty.o_form_label_false
                                                 | Conversion Date
                                         td(colspan='1', style='width: 100%;')
                                             span.o_form_field_date.o_form_field.o_form_invisible.o_form_field_empty
@@ -242,50 +249,57 @@
                                             tbody
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_label_help(for='o_field_input_373', data-original-title='', title='')
+                                                        label.o_form_label.o_form_label_help(data-original-title='', title='')
                                                             | Customer Name
                                                     td(colspan='1', style='width: 100%;')
-                                                        span.o_form_field E-light Industry
+                                                        span.o_form_field {{cust_name}}
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label(for='o_field_input_374')
+                                                        label.o_form_label
                                                             | Address
                                                     td(colspan='1', style='width: 100%;')
                                                         .o_address_format
-                                                            span.o_address_street.o_form_field Palermo, Capital Federal
-                                                            span.o_address_street.o_form_field C1414CMS Capital Federal
-                                                            span.o_address_city.o_form_field Buenos Aires
-                                                            span.o_address_state.o_form_field.o_form_field_empty
-                                                            span.o_address_zip.o_form_field B7313
-                                                            span.o_address_country.o_form_field Argentina
+                                                            span.o_address_street.o_form_field {{steet_one}}
+                                                            span.o_address_street.o_form_field {{street_two}}
+                                                            span.o_address_city.o_form_field {{city_name}}
+                                                            span.o_address_state.o_form_field {{state_name}}
+                                                            span.o_address_zip.o_form_field {{zip_num}}
+                                                            span.o_address_country.o_form_field {{country_name}}
                                         table.o_group.o_inner_group.o_group_col_6
                                             tbody
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label(for='o_field_input_375')
+                                                        label.o_form_label
                                                             | Contact Name
                                                     td(colspan='1', style='width: 100%;')
                                                         .o_row
-                                                            span.o_form_field Henry Jordan
+                                                            span.o_form_field {{cont_name}}
                                                             span.o_form_field.o_form_field_empty
+                                                td.o_td_label(colspan='1')
+                                                    label.o_form_label
+                                                        | Title
+                                                td(colspan='1', style='width: 100%;')
+                                                    .o_row
+                                                        span.o_form_field {{title_name}}
+                                                        span.o_form_field.o_form_field_empty
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_label_empty.o_form_label_false(for='o_field_input_376')
+                                                        label.o_form_label.o_form_label_empty.o_form_label_false
                                                             | Job Position
                                                     td(colspan='1', style='width: 100%;')
-                                                        span.o_form_field.o_form_field_empty
+                                                        span.o_form_field {{job_position}}
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_label_empty.o_form_label_false(for='o_field_input_377')
+                                                        label.o_form_label.o_form_label_empty.o_form_label_false
                                                             | Mobile
                                                     td(colspan='1', style='width: 100%;')
-                                                        span.o_form_field.o_form_field_empty
+                                                        span.o_form_field {{mobile_num}}
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_label_empty.o_form_label_false(for='o_field_input_378')
+                                                        label.o_form_label.o_form_label_empty.o_form_label_false
                                                             | Fax
                                                     td(colspan='1', style='width: 100%;')
-                                                        span.o_form_field.o_form_field_empty
+                                                        span.o_form_field {{fax_num}}
                                                 tr
                                                     td.o_td_label(colspan='1')
                                                         label.o_form_label.o_form_label_help.o_form_label_false(for='o_field_input_379', data-original-title='', title='')
@@ -302,22 +316,22 @@
                                                             | Marketing
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_label_help(for='o_field_input_380', data-original-title='', title='')
+                                                        label.o_form_label.o_form_label_help(data-original-title='', title='')
                                                             | Campaign
                                                     td(colspan='1', style='width: 100%;')
-                                                        a.o_form_uri.o_form_field(href='#') Email Campaign - Services
+                                                        a.o_form_uri.o_form_field(href='#') {{campain_name}}
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false(for='o_field_input_381', data-original-title='', title='')
+                                                        label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false(data-original-title='', title='')
                                                             | Medium
                                                     td(colspan='1', style='width: 100%;')
-                                                        a.o_form_uri.o_form_field.o_form_field_empty(href='#')
+                                                        a.o_form_uri.o_form_field(href='#') {{med_name}}
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_label_help(for='o_field_input_382', data-original-title='', title='')
+                                                        label.o_form_label.o_form_label_help(data-original-title='', title='')
                                                             | Source
                                                     td(colspan='1', style='width: 100%;')
-                                                        a.o_form_uri.o_form_field(href='#') Search engine
+                                                        a.o_form_uri.o_form_field(href='#') {{sour_name}}
                                         table.o_group.o_inner_group.o_group_col_6
                                             tbody
                                                 tr
@@ -326,25 +340,25 @@
                                                             | Misc
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_invisible(for='o_field_input_383')
+                                                        label.o_form_label.o_form_invisible
                                                             | Days to Assign
                                                     td(colspan='1', style='width: 100%;')
                                                         span.o_form_field.o_form_invisible.o_form_field_number 0.00
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_invisible(for='o_field_input_384')
+                                                        label.o_form_label.o_form_invisible
                                                             | Days to Close
                                                     td(colspan='1', style='width: 100%;')
                                                         span.o_form_field.o_form_invisible.o_form_field_number 0.00
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_label_empty.o_form_label_false(for='o_field_input_385')
+                                                        label.o_form_label.o_form_label_empty.o_form_label_false
                                                             | Referred By
                                                     td(colspan='1', style='width: 100%;')
-                                                        span.o_form_field.o_form_field_empty
+                                                        span.o_form_field {{ref_by}}
                                                 tr
                                                     td.o_td_label(colspan='1')
-                                                        label.o_form_label.o_form_label_help.o_form_invisible(for='o_field_input_386', data-original-title='', title='')
+                                                        label.o_form_label.o_form_label_help.o_form_invisible(data-original-title='', title='')
                                                             | Type
                                                     td(colspan='1', style='width: 100%;')
                                                         span.o_form_field.o_form_required.o_form_invisible Opportunity

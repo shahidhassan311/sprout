@@ -172,10 +172,10 @@ body {
 
 /** Primary button **/
 .btn-breadcrumb .btn.btn-primary:not(:last-child):after {
-    border-left: 10px solid #807fa9;
+    border-left: 10px solid #7c7bad;
 }
 .btn-breadcrumb .btn.btn-primary:not(:last-child):before {
-    border-left: 10px solid darkgrey;
+    border-left: 10px solid #7c7bad;
 }
 .btn-breadcrumb .btn.btn-primary:hover:not(:last-child):after {
     border-left: 10px solid darkgrey;
@@ -382,7 +382,7 @@ body {
     background-color: white;
 }
 .row{
-    width: 1586px;
+    /*width: 1586px;*/
 }
 
 
@@ -11255,10 +11255,10 @@ a.o_form_view .oe_form_box_info:hover, a.o_form_view .oe_form_box_info:focus {
 
 /** Primary button **/
 .btn-breadcrumb .btn.btn-primary:not(:last-child):after {
-    border-left: 10px solid darkgrey;
+    border-left: 10px solid #7c7bad !important;
 }
 .btn-breadcrumb .btn.btn-primary:not(:last-child):before {
-    border-left: 10px solid darkgrey;
+    border-left: 10px solid #7c7bad !important;
 }
 .btn-breadcrumb .btn.btn-primary:hover:not(:last-child):after {
     border-left: 10px solid darkgrey;
@@ -11533,5 +11533,12 @@ a.o_form_view .oe_form_box_info:hover, a.o_form_view .oe_form_box_info:focus {
 .samocontent{
     overflow: auto;
     height: 80vh;
+}
+a.active{
+    background-color: #7c7bad !important;
+    color:white !important;
+}
+a.focus{
+    border:none !important;
 }
 

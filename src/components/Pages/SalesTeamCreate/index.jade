@@ -1,12 +1,14 @@
 .salesorderquotation
-    DashboardController(v-bind:savedbtn='true',v-bind:heading="quotation",v-bind:discardbtn='true',v-bind:importbtn='false',v-bind:Attachmentbtn='true',v-bind:printbtn='true',v-bind:actionbtn='true', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false')
-    Modal(v-bind:save='false',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg"',v-bind:create='true',v-bind:select='true',v-bind:cancel='true')
+    DashboardController(v-bind:savedbtn='true',v-bind:heading="quotation",v-bind:discardbtn='true',v-bind:importbtn='false',v-bind:Attachmentbtn='false',v-bind:printbtn='false',v-bind:actionbtn='false', v-bind:links="btnlinks",v-bind:num1='false',v-bind:num2='false',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false')
+        .col-sm-6(style='padding:0px;' ,slot='heading')
+            h4.samodashheading(style="font-size: 18px;") Sales Teams / New
+    Modal(v-bind:save='false',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg"',v-bind:links="btnlinks",v-bind:select="true",v-bind:cancel="true")
         .input-group.stylish-input-group(style='height: 35px;')
-            input.form-control(type='text', placeholder='Search')
-            span.input-group-addon
+            input.form-control(type='text', placeholder='Search', style="height: 40px;")
+            span.input-group-addon(style="box-shadow: 0 0 0;border-color: #ccc;")
                 button#searchbutton(type='submit')
                     span.fa.fa-search-plus.samofa
-        .o_pager(style='margin-left: 83%;')
+        .o_pager(style='margin-left: 90%;padding-bottom: 14px;')
             div
                 span.o_pager_value 1-6
                 |  /
@@ -14,9 +16,38 @@
                 span.btn-group.btn-group-sm
                     button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous(type='button', accesskey='p', disabled='')
                     button.fa.fa-chevron-right.btn.btn-icon.o_pager_next(type='button', accesskey='n', disabled='')
+        TableMain(v-bind:tableheader='tableheader',v-bind:tablefoot='tablefooter', v-bind:tabledata="tabledata")
+
+    Modal(v-bind:save='false',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg1"',v-bind:links="btnlinks",v-bind:cancel="true",v-bind:savenew="true",v-bind:saveclose="true")
+        .col-md-12.mainheadingbar
+            h5(style='text-align:center;font-size: 14px;padding-top: 10px;') You are creating a new user. After saving, the user will receive an invite email containing a link to set its password.
+        .col-md-12(style='padding-bottom:10px;')
+            .col-md-1
+                img.img.img-responsive(border='1', name='image', src='/images/placeholder.png')
+            .col-md-11
+                label.o_form_label.oe_edit_only(for='o_field_input_36')
+                    | Name
+                h1
+                    input#o_field_input_30.o_form_input.o_form_field.o_form_required.salesteam(type='text',style='background-color: #D2D2FF;')
+                label.o_form_label.oe_edit_only(for='o_field_input_36')
+                    | Email Address
+                h1
+                    input(placeholder='Email@yourcompany.com', type='text',style='background-color: #D2D2FF;font-size: 21px;')
+
+        .col-md-12(style='padding-bottom: 25px;')
+            .col-md-3
+                ul(style='list-style-type:none;padding: 0px;border-right: 1px solid lightgrey;')
+                    li(style='padding-bottom: 9px;') Phone
+                    li(style='padding-bottom: 9px;') Mobile
+                    li(style='padding-bottom: 9px;') Fax
+            .col-md-9
+                input(type='text')
+                input(type='text')
+                input(type='text')
 
 
-        TableMain(v-bind:tableheader='tableheader', v-bind:tabledata="tabledata")
+
+
     .o_content.samocontent(style='margin-left: -15px;margin-right: -15px;')
         .o_view_manager_content
             .o_form_view.o_form_readonly
@@ -28,136 +59,134 @@
                                 .o_stat_info.o_form_field(data-original-title='', title='')
                                     span.o_stat_text.o_not_hover.text-success Active
                                     span.o_stat_text.o_hover.text-danger Archive
+                        form(@submit.prevent="validateBeforeSubmit" v-if="!formSubmitted", onsubmit="return validate()")
+                            .oe_title
+                                label.o_form_label.oe_edit_only(for='o_field_input_36')
+                                    | Sales team
+                                h1
+                                    input#o_field_input_36.o_form_input.o_form_field.o_form_required.salesteam(name='fname', v-model='name_field', v-validate="'required|alpha'", :class="{'input': true, 'is-danger': errors.has('name') }", type='text', placeholder='salesteam name')
+                                    i.fa.fa-warning(v-show="errors.has('fname')")
+                                    span.help.is-danger(style='font-size:15px')(v-show="errors.has('fname')") {{ errors.first('fname') }}
 
-
-                        .oe_title
-                            label.o_form_label.oe_edit_only(for='o_field_input_36')
-                                | Sales team
-                            h1
-                                input#o_field_input_36.o_form_input.o_form_field.o_form_required.salesteam(placeholder='Salesteam name...', type='text')
-                                button.o_field_translate.fa.fa-globe.btn.btn-link.o_translate_active.salesteam-global(type='button')
-                            div(name='options_active')
-                                .o_row
-                                    .o_checkbox.o_form_field_boolean.o_form_field
-                                        input(type='checkbox', name='use_quotations')
-                                        span
-                                    label.o_form_label.o_form_label_help
-                                        | Quotations
-                                    .o_checkbox.o_form_field_boolean.o_form_field
-                                        input(type='checkbox', name='use_invoices')
-                                        span
-                                    label.o_form_label.o_form_label_help
-                                        | Invoices
-                                .o_row
-                                    span.o_row.o_form_invisible(invisible='1')
-                                        .o_checkbox.o_form_field_boolean.o_form_field
-                                            input(type='checkbox', name='use_leads')
+                                div(name='options_active')
+                                    .o_row
+                                        .o_checkbox
+                                            input(type='checkbox',v-bind:true-value='1',v-bind:false-value='0',v-model='sales_team_quotation')
                                             span
                                         label.o_form_label.o_form_label_help
-                                            | Leads
-                                    .o_checkbox.o_form_field_boolean.o_form_field
-                                        input(type='checkbox', name='use_opportunities')
-                                        span
-                                    label.o_form_label.o_form_label_help
-                                        | Opportunities
+                                            | Quotations
+                                        .o_checkbox
+                                            input(type='checkbox',v-bind:true-value='1',v-bind:false-value='0',v-model='sales_team_invoices')
+                                            span
+                                        label.o_form_label.o_form_label_help
+                                            | Invoices
+                                    .o_row(style='display: block;')
+                                        span.o_row.o_form_invisible(invisible='1')
+                                            .o_checkbox.o_form_field_boolean.o_form_field
+                                                input(type='checkbox', name='use_leads')
+                                                span
+                                            label.o_form_label.o_form_label_help
+                                                | Leads
+                                        .o_checkbox
+                                            input#inputhide(type='checkbox',v-bind:true-value='1',v-bind:false-value='0', v-model='sales_team_opportunities')
+                                            span
+                                        label.o_form_label.o_form_label_help
+                                            | Opportunities
 
-                        .o_group
-                            table.o_group.o_inner_group.o_group_col_6
-                                tbody
-                                    tr
-                                        td.o_td_label(colspan='1')
-                                            label.o_form_label
-                                                | Team Leader
-                                        td(colspan='1', style='width: 100%;')
-                                            .o_form_field_many2one.o_form_field
-                                                select
-                                                    option(value='volvo') hassan
-                                                    option(value='saab') Saab
-                                                    option(value='mercedes') sameer
-                                                    option(value='audi') osama
-                                                        span.o_dropdown_button(draggable='false')
-                                                button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
-                                    tr
-                                        td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help(for='o_field_input_42', data-original-title='', title='')
-                                                | Email Alias
-                                        td(colspan='1', style='width: 100%;')
-                                            div(name='alias_def', attrs="{'invisible': [('use_leads', '=', False), ('use_opportunities', '=', False)]}")
-                                                .o_form_field_many2one.o_with_button.oe_read_only.oe_inline.o_form_field(data-original-title='', title='')
-                                                    .o_form_input_dropdown
-                                                        input.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
-                                                .oe_edit_only.oe_inline(name='edit_alias', style='display: inline;')
-                                                    input#o_field_input_42.o_form_input.oe_inline.o_form_field(type='text')
-                                                    | @ localhost
-                                    tr
-                                        td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help.o_form_invisible.oe_inline(for='o_field_input_43', data-original-title='', title='')
-                                                | Accept Emails From
-                                        td(colspan='1', style='width: 100%;')
-                                            select#o_field_input_43.o_form_input.oe_inline.o_form_field.o_form_required.o_form_invisible(name='alias_contact')
-                                                option(value='false')
-                                                option(value='"everyone"') Everyone
-                                                option(value='"partners"') Authenticated Partners
-                                                option(value='"followers"') Followers only
-                                                option(value='"employees"') Authenticated Employees
-                            table.o_group.o_inner_group.o_group_col_6
+                            .o_group
+                                table.o_group.o_inner_group.o_group_col_6
+                                    tbody
+                                        tr
+                                            td.o_td_label(colspan='1')
+                                                label.o_form_label
+                                                    | Team Leader
+                                            td(colspan='1', style='width: 100%;')
+                                                select(v-model='team_lead_id',name='team leader name', v-validate="'required|alpha'", :class="{'input': true, 'is-danger': errors.has('name') }")
+                                                    option(v-for='option_p in team_leader_drop', v-bind:value="option_p.id")
+                                                        | {{ option_p.username }}
+                                                //i.fa.fa-warning(v-show="errors.has('team leader name')")
+                                                //span.help.is-danger(style='font-size:15px')(v-show="errors.has('team leader name')") {{ errors.first('team leader name') }}
 
-                        .o_notebook
-                            ul.nav.nav-tabs(role='tablist')
-                                li.nav-item
-                                    a.nav-link.active(href='#profile1', role='tab', data-toggle='tab') Team Member
-                            // Tab panes
-                            .tab-content
-                                #profile1.tab-pane.fade.in.active(role='tabpanel')
-                                    .o_form_field.o_view_manager_content
-                                        .o_x2m_control_panel
-                                            .o_cp_buttons
-                                                div
-                                                    button.btn.btn-primary.btn-sm.o-kanban-button-new(accesskey='c', type='button',data-toggle='modal', data-target='.bd-example-modal-lg')
-                                                        | Add
-                                            .o_cp_pager
-                                                .o_hidden
-                                                    span.o_pager_value
-                                                    |  /
-                                                    span.o_pager_limit
-                                                    span.btn-group.btn-group-sm
-                                                        button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous(type='button')
-                                                        button.fa.fa-chevron-right.btn.btn-icon.o_pager_next(type='button')
-                                        .o_kanban_view.o_kanban_ungrouped(style='display: flex;')
+                                        tr#hidetr
+                                            td.o_td_label(colspan='1')
+                                                label.o_form_label.o_form_label_help(for='o_field_input_42', data-original-title='', title='')
+                                                    | Email Alias
+                                            td(colspan='1', style='width: 100%;')
+                                                div(name='alias_def', attrs="{'invisible': [('use_leads', '=', False), ('use_opportunities', '=', False)]}")
+                                                    .o_form_field_many2one.o_with_button.oe_read_only.oe_inline.o_form_field(data-original-title='', title='')
+                                                        .o_form_input_dropdown(style='display:inherit;')
+                                                            input.o_form_input.ui-autocomplete-input(type='text', autocomplete='off' ,v-model='alias_email')
+                                                            span(style='font-size: 15px;padding-top: 5px;') @{{alias_domain}}
+                                                    .oe_edit_only.oe_inline(name='edit_alias', style='display: inline;')
+                                                        input#o_field_input_42.o_form_input.oe_inline.o_form_field(type='text')
+                                                        | @ localhost
+                                        tr
+                                            td.o_td_label(colspan='1')
+                                                label.o_form_label.o_form_label_help.o_form_invisible.oe_inline(for='o_field_input_43', data-original-title='', title='')
+                                                    | Accept Emails From
+                                            td(colspan='1', style='width: 100%;')
+                                                select#o_field_input_43.o_form_input.oe_inline.o_form_field.o_form_required.o_form_invisible(name='alias_contact')
+                                                    option(value='false')
+                                                    option(value='"everyone"') Everyone
+                                                    option(value='"partners"') Authenticated Partners
+                                                    option(value='"followers"') Followers only
+                                                    option(value='"employees"') Authenticated Employees
+                                table.o_group.o_inner_group.o_group_col_6
+
+                            .o_notebook
+                                ul.nav.nav-tabs(role='tablist')
+                                    li.nav-item
+                                        a.nav-link.active(href='#profile1', role='tab', data-toggle='tab') Team Member
+                                // Tab panes
+                                .tab-content
+                                    #profile1.tab-pane.fade.in.active(role='tabpanel')
+                                        .o_form_field.o_view_manager_content
+                                            .o_x2m_control_panel
+                                                .o_cp_buttons
+                                                    div
+                                                        button.btn.btn-primary.btn-sm.o-kanban-button-new#add_btn(accesskey='c', type='button',data-toggle='modal', data-target='.bd-example-modal-lg', style='background: #7c7bad;border: none;')
+                                                            | Add
+                                                .col-md-12(style='padding-top: 12px;')
+                                                    .col-md-6(style='padding:0px;' v-for='snnn in username_p')
+                                                        .fa.fa-times.pull-right.oe_kanban_action.oe_kanban_action_a( v-on:click="submit51(snnn.id)" style='cursor: pointer;')
+                                                        img(src='/images/placeholder.png')
+                                                        p(style='display:inline-block;') {{snnn.username}}
 
 
 
-        .o_mail_thread(style='margin-left: 336px;')
-            .o_thread_date_separator
-                span.o_thread_date
-                    | February 25, 2017
 
 
-            .o_thread_message.samothreadmessage(data-message-id='1038')
-                .o_thread_message_sidebar
-                    img.o_thread_message_avatar(data-oe-model='res.partner', data-oe-id='', src='/images/image_small.png' style='width: 33px;a')
-                .o_thread_message_core.o_mail_note.samothreadmessage1
-                    p.o_mail_info
-                        | Note by
-                        strong(data-oe-model='res.partner', data-oe-id='')
-                            | YourCompany, Administrators
-                        |                     -
-                        small.o_mail_timestamp(title='Sat Feb 25 2017 16:35:56 GMT+0500') 9 days ago
-                        span
-                            i.fa.fa-lg.o_thread_message_star.fa-star-o(title='Mark as Todo', data-message-id='1038')
-                    ul.o_mail_thread_message_tracking
-                        li
-                            | Untaxed Amount:
-                            span  637.5
-                        li
-                            | Vendor:
-                            span  Delta PC
-                        li
-                            | Status:
-                            span  RFQ
-                            span.fa.fa-long-arrow-right
-                            span
-                                | RFQ Sent
+        //.o_mail_thread(style='margin-left: 336px;')
+        //    .o_thread_date_separator
+        //        span.o_thread_date
+        //            | February 25, 2017
+        //
+        //
+        //    .o_thread_message.samothreadmessage(data-message-id='1038')
+        //        .o_thread_message_sidebar
+        //            img.o_thread_message_avatar(data-oe-model='res.partner', data-oe-id='', src='/images/image_small.png' style='width: 33px;a')
+        //        .o_thread_message_core.o_mail_note.samothreadmessage1
+        //            p.o_mail_info
+        //                | Note by
+        //                strong(data-oe-model='res.partner', data-oe-id='')
+        //                    | YourCompany, Administrators
+        //                |                     -
+        //                small.o_mail_timestamp(title='Sat Feb 25 2017 16:35:56 GMT+0500') 9 days ago
+        //                span
+        //                    i.fa.fa-lg.o_thread_message_star.fa-star-o(title='Mark as Todo', data-message-id='1038')
+        //            ul.o_mail_thread_message_tracking
+        //                li
+        //                    | Untaxed Amount:
+        //                    span  637.5
+        //                li
+        //                    | Vendor:
+        //                    span  Delta PC
+        //                li
+        //                    | Status:
+        //                    span  RFQ
+        //                    span.fa.fa-long-arrow-right
+        //                    span
+        //                        | RFQ Sent
 
 
 

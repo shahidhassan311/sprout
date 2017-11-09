@@ -8,7 +8,7 @@ module.exports = {
         var connection = mysql.createConnection({
             host: "46.101.37.156",
             user: "sprout",
-            password: "sprout12345",
+                password: "sprout12345",
             database: db_name
         });
         return connection;

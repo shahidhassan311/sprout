@@ -1,5 +1,522 @@
 .salesproductview
-    DashboardController(v-bind:editbtn='true',v-bind:heading="quotation",v-bind:createbtn='true',v-bind:importbtn='false',v-bind:Attachmentbtn='true',v-bind:printbtn='true',v-bind:actionbtn='true', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false')
+    DashboardController(v-bind:editbtn='true',v-bind:heading="quotation",v-bind:createbtn='true',
+    v-bind:importbtn='false',v-bind:Attachmentbtn='true',v-bind:printbtn='true',v-bind:actionbtn='true',
+    v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='false',v-bind:paginbtn2='false',
+    v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false')
+        .col-sm-6(style='padding:0px;')(slot='heading')
+            h4.samodashheading(style="font-size: 18px;") Products / {{ name }}
+        span.o_pager_value(slot='page') {{counter}}
+            |  /
+            span.o_pager_limit(style="padding-right: 6px;") {{num}}
+            span.btn-group.btn-group-sm
+                button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous#num10(@click="counter++",style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='p')
+                button.fa.fa-chevron-right.btn.btn-icon.o_pager_next#num01(@click="counter--",style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='n')
     SalesProductInner
+        .o_form_sheet_bg(slot='product_view')
+            .o_form_sheet
+                .container
+                    .oe_button_box(name='button_box')
+                        button.btn.btn-sm.oe_stat_button(type='button')
+                            .fa.fa-fw.fa-archive.o_button_icon
+                            .o_stat_info.o_form_field(data-original-title='', title='')
+                                span.o_stat_text.o_not_hover.text-success Active
+                                span.o_stat_text.o_hover.text-danger Archive
+                        button.btn.btn-sm.oe_stat_button.o_form_invisible(type='button')
+                            .fa.fa-fw.fa-sitemap.o_button_icon
+                            .o_form_field.o_stat_info
+                                span.o_stat_value 1
+                                span.o_stat_text Variant
+                        button.btn.btn-sm.oe_stat_button(type='button')
+                            .fa.fa-fw.fa-flask.o_button_icon
+                            .o_form_field.o_stat_info
+                                span.o_stat_value 0
+                                span.o_stat_text Bill of Material
+                        button.btn.btn-sm.oe_stat_button(type='button')
+                            .fa.fa-fw.fa-list-alt.o_button_icon
+                            .o_form_field.o_stat_info
+                                span.o_stat_value 0
+                                span.o_stat_text Manufacturing
+                        button.btn.btn-sm.oe_stat_button.o_form_invisible(type='button')
+                            .fa.fa-fw.fa-truck.o_button_icon
+                            span Procurements
+                        button.btn.btn-sm.oe_stat_button(type='button')
+                            .fa.fa-fw.fa-shopping-cart.o_button_icon
+                            .o_form_field.o_stat_info
+                                span.o_stat_value 0
+                                span.o_stat_text Purchases
+                        button.btn.btn-sm.oe_stat_button(type='button')
+                            .fa.fa-fw.fa-usd.o_button_icon
+                            .o_form_field.o_stat_info
+                                span.o_stat_value 0
+                                span.o_stat_text Sales
+                        button.btn.btn-sm.oe_stat_button(type='button')
+                            .fa.fa-fw.fa-building-o.o_button_icon
+                            .o_form_field.o_stat_info
+                                span.o_stat_value 18
+                                span.o_stat_text On Hand
+                        button.btn.btn-sm.oe_stat_button(type='button')
+                            .fa.fa-fw.fa-building-o.o_button_icon
+                            .o_form_field.o_stat_info
+                                span.o_stat_value
+                                    span.o_form_field.o_form_field_number 18
+                                    span.o_form_invisible(invisible='1')
+                                        | (-
+                                        span.o_form_field.o_form_field_number 0
+                                        | +
+                                        span.o_form_field.o_form_field_number 0
+                                        | )
+                                span.o_stat_text Forecasted
+                        button.btn.btn-sm.oe_stat_button(type='button')
+                            .fa.fa-fw.fa-arrows-v.o_button_icon
+                            span Traceability
+                        button.btn.btn-sm.oe_stat_button(type='button')
+                            .fa.fa-fw.fa-refresh.o_button_icon
+                            .o_form_field.o_stat_info
+                                span.o_stat_value 0
+                                span.o_stat_text Reordering Rules
+                        button.btn.btn-sm.oe_stat_button.o_form_invisible(type='button')
+                            .fa.fa-fw.fa-refresh.o_button_icon
+                            .o_form_field.o_stat_info.mr4
+                                span.o_stat_text Min:
+                                span.o_stat_text Max:
+                            .o_form_field.o_stat_info
+                                span.o_stat_value
+                                    span.o_form_field.o_form_field_number 0.00
+                                span.o_stat_value
+                                    span.o_form_field.o_form_field_number 0.00
+                        button.btn.btn-sm.oe_stat_button.o_form_invisible(type='button')
+                            .fa.fa-fw.fa-cogs.o_button_icon
+                            span Routes
+
+                    .o_form_field_image.oe_avatar.o_form_field(data-original-title='', title='')
+                        img(border='1', name='image_medium', src='/images/placeholder.png',style='width: 90px;')
+                    .oe_title(style='padding-left: 122px;margin-top: -148px;display: inline-block;')
+                        label.o_form_label.oe_edit_only
+                            | Product Name
+                        h1
+                            span.o_form_field.o_form_required(style='font-size: 26px;') {{ name }}
+                            button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
+                        div(name='options')
+                            div
+                                .o_checkbox.o_form_field_boolean.o_form_field
+                                    input#o_field_input_5(type='checkbox',  disabled='' v-bind:true-value='1' v-bind:false-value='0' v-model='sold')
+                                    span
+                                label.o_form_label.o_form_label_help(for='o_field_input_5', data-original-title='', title='')
+                                    | Can be Sold
+                            div
+                                .o_checkbox.o_form_field_boolean.o_form_field
+                                    input#o_field_input_6(type='checkbox',  disabled='' v-bind:true-value='1' v-bind:false-value='0' v-model='purchase')
+                                    span
+                                label.o_form_label(for='o_field_input_6')
+                                    | Can be Purchased
+                            div
+                                .o_checkbox.o_form_field_boolean.o_form_field
+                                    input#o_field_input_7(type='checkbox', disabled='' v-bind:true-value='1' v-bind:false-value='0' v-model='expense')
+                                    span
+                                label.o_form_label.o_form_label_help.o_form_label_false(for='o_field_input_7', data-original-title='', title='' )
+                                    | Can be Expenseds
+
+                    .row
+                        .col-md-12.kachraytabs
+                            .o_notebook(style='margin-top:43px;')
+                                ul.nav.nav-tabs(role='tablist')
+                                    li.nav-item
+                                        a.nav-link.active(href='#profile', role='tab', data-toggle='tab') General Information
+                                    li.nav-item
+                                        a.nav-link(href='#buzz', role='tab', data-toggle='tab') Inventory
+                                    li.nav-item
+                                        a.nav-link(href='#buzz1', role='tab', data-toggle='tab') Sales
+                                    li.nav-item
+                                        a.nav-link(href='#buzz2', role='tab', data-toggle='tab') Invoicing
+                                    li.nav-item
+                                        a.nav-link(href='#buzz3', role='tab', data-toggle='tab') Notes
+                                // Tab panes
+                            .tab-content
+                                #profile.tab-pane.fade.in.active(role='tabpanel')
+                                    .o_group
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Product Type
+                                                    td(colspan='1', style='width: 100%;')
+                                                        span.o_form_field.o_form_required {{ product_name }}
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label
+                                                            | Internal Reference
+                                                    td(colspan='1', style='width: 100%;')
+                                                        span.o_form_field {{ internal_reference }}
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label
+                                                            | Barcode
+                                                    td(colspan='1', style='width: 100%;')
+                                                        span.o_form_field
+                                                            | {{ barcode }}
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Sale Price
+                                                    td(colspan='1', style='width: 100%;')
+                                                        span.o_form_field.o_form_field_number
+                                                            | {{ sale_price }}
+                                                            span €
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_invisible
+                                                            | Valuation
+                                                    td(colspan='1', style='width: 100%;')
+                                                        span.o_form_field.o_form_invisible manual_periodic
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_invisible
+                                                            | Cost method
+                                                    td(colspan='1', style='width: 100%;')
+                                                        span.o_form_field.o_form_invisible standard
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help.o_form_invisible.o_form_label_empty.o_form_label_false
+                                                            | Costing Method
+                                                    td(colspan='1', style='width: 100%;')
+                                                        span.o_form_field.o_form_invisible.o_form_field_empty
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Cost
+                                                    td(colspan='1', style='width: 100%;')
+                                                        div(name='standard_price_uom')
+                                                            span.oe_inline.o_form_field.o_form_field_number
+                                                                | {{ cost }}
+                                                                span €
+                                                tr
+                                                    td(colspan='2', style='width: 100%;')
+                                                        button.btn.btn-sm.oe_link.oe_read_only.o_form_invisible(type='button')
+                                                            span Compute from average price
+                                                tr
+                                                    td(colspan='2', style='width: 100%;')
+                                                        button.btn.btn-sm.oe_link.oe_read_only.o_form_invisible(type='button')
+                                                            span Set standard price
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help.o_form_invisible
+                                                            | Unit of Measure
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field.o_form_required.o_form_invisible(href='#') Unit(s)
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help.o_form_invisible
+                                                            | Purchase Unit of Measure
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field.o_form_required.o_form_invisible(href='#') Unit(s)
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Control Purchase Bills
+                                                    td(colspan='1', style='width: 100%;')
+                                                        span.o_form_field {{ bill_type }}
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_invisible
+                                                            | Currency
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field.o_form_invisible(href='#') EUR
+
+
+
+                                #buzz.tab-pane.fade.in(role='tabpanel')
+                                    .o_group
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Routes
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .oe_form_many2many_checkboxes.o_form_field
+                                                            div
+                                                                .o_checkbox
+                                                                    input(type='checkbox', data-record-id='11', disabled='disabled' v-bind:true-value='1' v-bind:false-value='0' v-model='manufacture')
+                                                                    span
+                                                                label.o_form_label Manufacture
+                                                            div
+                                                                .o_checkbox
+                                                                    input(type='checkbox', data-record-id='12', disabled='disabled' v-bind:true-value='1' v-bind:false-value='0' v-model='buy')
+                                                                    span
+                                                                label.o_form_label Buy
+                                                            div
+                                                                .o_checkbox
+                                                                    input(type='checkbox', data-record-id='1', disabled='disabled' v-bind:true-value='1' v-bind:false-value='0' v-model='make_to_order')
+                                                                    span
+                                                                label.o_form_label Make To Order
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_invisible.o_form_label_empty
+                                                            | Category Routes
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .o_form_field_many2manytags.o_form_field.o_form_invisible.o_form_field_empty
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Weight
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .o_row
+                                                            span.o_form_field.o_form_field_number {{ weight }}
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_invisible
+                                                            | Tracking
+                                                    td(colspan='1', style='width: 100%;')
+                                                        span.o_form_field.o_form_required.o_form_invisible No Tracking
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Volume
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .o_row
+                                                            span.o_form_field.o_form_field_number {{ volume }}
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Internal Category
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field.o_form_required(href='#') {{ product_category_name }}
+                                        table.o_group.o_inner_group.o_form_invisible.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Procurement Location
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field(href='#') Virtual Locations/Procurements
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Production Location
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field(href='#') Virtual Locations/Production
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Inventory Location
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field(href='#') Virtual Locations/Inventory adjustment
+                                    h3(style='color: #7c7bad;font-weight: bold;font-size: 19px;') Vendors
+                                    .o_form_field.o_form_field_one2many.o_view_manager_content
+                                        .o_x2m_control_panel
+                                            .o_cp_buttons
+                                            .o_cp_pager
+                                                .o_hidden
+                                                    span.o_pager_value
+                                                    |  /
+                                                    span.o_pager_limit
+                                                    span.btn-group.btn-group-sm
+                                                        button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous(type='button')
+                                                        button.fa.fa-chevron-right.btn.btn-icon.o_pager_next(type='button')
+                                    .table-responsive
+                                        table.o_list_view.table.table-condensed.table-striped
+                                            thead
+                                                tr
+                                                    th.o_column_sortable(data-id='name')
+                                                        | Vendor
+                                                    th.o_column_sortable(data-id='min_qty')
+                                                        | Minimal Quantity
+                                                    th.o_column_sortable(data-id='price')
+                                                        | Price
+                                                    th.o_column_sortable(data-id='date_start')
+                                                        | Start Date
+                                                    th.o_column_sortable(data-id='date_end')
+                                                        | End Date
+                                            tfoot
+                                                tr
+                                                    td
+                                                    td
+                                                    td
+                                                    td
+                                                    td
+                                                    td
+                                            tbody.ui-sortable
+                                                tr(v-for='(tdata_p, key, index) in options')
+                                                    //td(title='')  {{ tdata_p.id }}
+                                                    td(title='Vendor')  {{ tdata_p.vendor_product_name }}
+                                                    td(title='Minimal Quantity')  {{ tdata_p.minimal_quantity }}
+                                                    td(title='Price')  {{ tdata_p.price }}
+                                                    td(title='Start Date')  {{ validity_start_loop[key]}}
+                                                    td(title='End Date')  {{ validity_end_loop[key]}}
+
+
+                                #buzz1.tab-pane.fade.in(role='tabpanel')
+                                    .o_group
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td(colspan='2', style='width: 100%;')
+                                                        .o_horizontal_separator
+                                                            | Sale Conditions
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_invisible
+                                                            | Warranty
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .o_form_invisible
+                                                            span.oe_inline.o_form_field.o_form_field_number 0.00
+                                                            |  months
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Customer Lead Time
+                                                    td(colspan='1', style='width: 100%;')
+                                                        div
+                                                            span.oe_inline.o_form_field.o_form_field_number(style='vertical-align:baseline') {{ customer_lead_time }}
+                                                            |  days
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help
+                                                            | Manufacturing Lead Time
+                                                    td(colspan='1', style='width: 100%;')
+                                                        div
+                                                            span.oe_inline.o_form_field.o_form_field_number {{ manufacturing_lead_time }}
+                                                            |  days
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td(colspan='2', style='width: 100%;')
+                                                        .o_horizontal_separator
+                                                            | Point of Sale
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help.o_form_label_false(for='o_field_input_917', data-original-title='', title='')
+                                                            | Available in the Point of Sale
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .o_checkbox.o_form_field_boolean.o_form_field
+                                                            input#o_field_input_917(type='checkbox', name='in_group_1', v-bind:true-value='1', v-bind:false-value='0', disabled='' v-model='avaliablity_in_pos')
+                                                            span
+                                                tr(v-if='avaliablity_in_pos !== 0')
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help.o_form_label_false
+                                                            | Point of Sale Category
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field(href='#') {{ category_name }}
+                                                tr(v-if='avaliablity_in_pos !== 0 ')
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help.o_form_label_false(for='o_field_input_41', data-original-title='', title='')
+                                                            | To Weigh With Scales
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .o_checkbox.o_form_field_boolean.o_form_field
+                                                            input#o_field_input_41(type='checkbox', name='to_weight', disabled='' v-bind:true-value='1', v-bind:false-value='0', v-model='scale_weight')
+                                                            span
+                                        table.o_group.o_inner_group.o_group_col_6.o_form_invisible
+
+
+
+                                #buzz2.tab-pane.fade.in(role='tabpanel')
+                                    .o_group
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false
+                                                            | Income Account
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field(href='#') {{ account_name }}
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_empty
+                                                            | Customer Taxes
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .o_form_field_many2manytags.o_form_field
+                                                            span.badge.dropdown.o_tag_color_10(data-color='10', data-id='1', data-index='0')
+                                                                span.o_badge_text(title='')
+                                                                    | {{ customer_taxes_name }}
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false
+                                                            | Expense Account
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field(href='#') {{ expance_account_name }}
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_empty
+                                                            | Vendor Taxes
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .o_form_field_many2manytags.o_form_field {{ vendor_taxes_name }}
+                                                tr
+                                                    td.o_td_label(colspan='2')
+                                                        label.o_form_label
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false
+                                                            | Price Difference Accounts
+                                                    td(colspan='1', style='width: 100%;')
+                                                        a.o_form_uri.o_form_field(href='#')
+                                                            | {{ price_diff_account_name }}
+                                    .o_horizontal_separator
+                                        | Invoicing Policy
+
+                                    table.o_group.o_inner_group
+                                        tbody
+                                            tr
+                                                td.o_td_label(colspan='1')
+                                                    label.o_form_label.o_form_label_help
+                                                        | Invoicing Policy
+                                                td(colspan='1', style='width: 100%;')
+                                                    span.o_form_field {{ invoicing_policy }}
+                                            tr
+                                                td.o_td_label(colspan='1')
+                                                    label.o_form_label
+                                                        | Re-Invoice Expenses
+                                                td(colspan='1', style='width: 100%;')
+                                                    span.o_form_field {{ re_invoice_expenses }}
+                                            tr
+                                                td.o_td_label(colspan='1')
+                                                    label.o_form_label.o_form_label_help.o_form_invisible
+                                                        | Track Service
+                                                td(colspan='1', style='width: 100%;')
+                                                    span.o_form_field.o_form_invisible Manually set quantities on order
+                                            tr
+                                                td.o_td_label(colspan='1')
+                                                    label.o_form_label.o_form_label_help.o_form_invisible.o_form_label_empty.o_form_label_false
+                                                        | Project
+                                                td(colspan='1', style='width: 100%;')
+                                                    a.o_form_uri.o_form_field.o_form_invisible.o_form_field_empty(href='#')
+
+
+                                #buzz3.tab-pane.fade.in(role='tabpanel')
+                                    table.o_group.o_inner_group
+                                        tbody
+                                            tr
+                                                td(colspan='4', style='width: 200%;')
+                                                    .o_horizontal_separator
+                                                        | Description for Quotations
+                                            tr
+                                                td(colspan='4', style='width: 200%;')
+                                                    span {{ quotation_description }}
+                                                    button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
+                                            tr
+                                                td(colspan='4', style='width: 200%;')
+                                                    .o_horizontal_separator
+                                                        | Description for Vendors
+                                            tr
+                                                td(colspan='4', style='width: 200%;')
+                                                    span {{ vendors_description }}
+                                                    button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
+                                            tr
+                                                td(colspan='4', style='width: 200%;')
+                                                    .o_horizontal_separator
+                                                        | Description for Pickings
+                                            tr
+                                                td(colspan='4', style='width: 200%;')
+                                                    span {{ pickings_description }}
+                                                    button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
+
     Message
     Request_quotation_lower

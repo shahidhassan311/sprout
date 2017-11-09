@@ -7,6 +7,7 @@ export default{
         $(function() {
             $(".checked").prop('checked', true);
             $("#apply").click(function () {
+                alert("asdasdas");
                  self.submit();
             });
 

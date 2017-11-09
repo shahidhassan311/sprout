@@ -32,7 +32,7 @@
                     | Edit
                 router-link.btn.btn-primary.disabled.samobuttopcontroller2(style="font-size: 13px;color:white;",v-if='validatebtn', v-bind:to="links.validatebtnlink", id='edit1')
                     | Validate
-                router-link.btn.btn-primary.samobuttopcontroller2#save(style="font-size: 13px;color:white;",v-if='savedbtn', type='submit' , v-bind:to="links.savebtnlink")
+                router-link.btn.btn-primary.samobuttopcontroller2#save(style="font-size: 13px;color:white;", v-if='savedbtn', v-bind:to="links.savebtnlink")
                     | Save
                 router-link.btn.btn-default.samobuttopcontroller(style="font-size: 13px;color: #4c4c4c;", v-if='discardbtn', v-bind:to="links.discardbtnlink")
                     | Discard
@@ -136,19 +136,14 @@
                         a.dropdown-item(href='#') Another action
                         a.dropdown-item(href='#') Something else here
                 div(style='float:right;padding-top: 8px;display: -webkit-inline-box;')
-                    span.o_pager_value(v-if='num1') 1-24
-                        |  /
-                        span.o_pager_limit(style="padding-right: 6px;",v-if='num2') 24
-                        span.btn-group.btn-group-sm
-                            button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous#num01(style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='p',v1-if='paginbtn1')
-                            button.fa.fa-chevron-right.btn.btn-icon.o_pager_next#num10(style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='n' ,v1-if='paginbtn2')
+                    slot(name='page')
                     .col-xs-1
                         .btn-group.btn-group-sm.o_cp_switch_buttons.samodashbuttcorner
-                            a.btn.btn-icon.fa.fa-lg.fa-th-large.o_cp_switch_kanban.active(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 9px;font-size: inherit;',type='button' , title='',v-if='firstbtn',v-bind:href="links.firstbtnlink")
-                            a.btn.btn-icon.fa.fa-lg.fa-list-ul.o_cp_switch_list(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 9px;font-size: inherit;',type='button',v-if='secondbtn',v-bind:href="links.secondbtnlink")
-                            a.btn.btn-icon.fa.fa-lg.fa-table.o_cp_switch_pivot(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 9px;font-size: inherit;',type='button' ,v-if='thirdbtn',v-bind:href="links.thirdbtnlink")
-                            a.btn.btn-icon.fa.fa-lg.fa-bar-chart.o_cp_switch_graph(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 9px;font-size: inherit;',type='button',v-if='fourthbtn',v-bind:href="links.fourthbtnlink")
-                            a.btn.btn-icon.fa.fa-lg.fa-calendar.o_cp_switch_calendar(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 5px;font-size: inherit;',type='button',v-if='fifthbtn',v-bind:href="links.fifthbtnlink")
+                            router-link.btn.btn-icon.fa.fa-lg.fa-th-large.o_cp_switch_kanban.active(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 9px;font-size: inherit;' , title='',v-if='firstbtn',v-bind:to="links.firstbtnlink")
+                            router-link.btn.btn-icon.fa.fa-lg.fa-list-ul.o_cp_switch_list(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 9px;font-size: inherit;',v-if='secondbtn',v-bind:to="links.secondbtnlink")
+                            router-link.btn.btn-icon.fa.fa-lg.fa-table.o_cp_switch_pivot(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 9px;font-size: inherit;' ,v-if='thirdbtn',v-bind:to="links.thirdbtnlink")
+                            router-link.btn.btn-icon.fa.fa-lg.fa-bar-chart.o_cp_switch_graph(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 9px;font-size: inherit;',v-if='fourthbtn',v-bind:to="links.fourthbtnlink")
+                            router-link.btn.btn-icon.fa.fa-lg.fa-calendar.o_cp_switch_calendar(style='background-color:white;border-color: #adadad;color: #4c4c4c;height: 27px;padding-top: 5px;font-size: inherit;',v-if='fifthbtn',v-bind:to="links.fifthbtnlink")
 
 
 

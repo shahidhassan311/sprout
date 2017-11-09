@@ -81,46 +81,46 @@
                                     span.o_stat_text.o_hover.text-danger Archive
                         .oe_title
                             h1
-                                input.o_form_input.o_form_field.o_form_required.topinput(placeholder='e.g. USD Retailers', type='text')
+                                input.o_form_input.o_form_field.o_form_required.topinput(placeholder='e.g. USD Retailers', type='text', v-model='price_name_list')
                                 button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
                         table.o_group.o_inner_group
                             tbody
                                 tr
                                     td.o_td_label(colspan='1')
-                                        label.o_form_label.o_form_invisible
+                                        label.o_form_label
                                             | Discount policy
                                     td(colspan='1', style='width: 100%;')
-                                        .o_form_field_radio.o_vertical.o_form_field.o_form_invisible
+                                        .o_form_field_radio.o_vertical.o_form_field
                                             .o_radio_item
-                                                input#radio59_with_discount.o_form_radio(type='radio', name='radio59', value='with_discount')
+                                                input#radio59_with_discount.o_form_radio(type='radio', value='with_discount',v-model='dis_poli')
                                                 label.o_form_label(for='radio59_with_discount') Discount included in the price
                                             .o_radio_item
-                                                input#radio59_without_discount.o_form_radio(type='radio', name='radio59', value='without_discount')
+                                                input#radio59_without_discount.o_form_radio(type='radio',value='without_discount' ,v-model='dis_poli')
                                                 label.o_form_label(for='radio59_without_discount') Show public price & discount to the customer
-                                tr
-                                    td.o_td_label(colspan='1')
-                                        label.o_form_label
-                                            | Currency
-                                    td(colspan='1', style='width: 100%;')
-                                        .o_form_field_many2one.o_with_button.o_form_field.o_form_required
-                                            select.selectb
-                                                option(value='volvo') ERU
-                                                option(value='saab') AED
-                                                option(value='mercedes') USD
-                                                option(value='audi') RS
-                                                span.o_dropdown_button(draggable='false')
-                                            button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button',data-toggle='modal', data-target='.bd-example-modal-lg')
-                                tr
-                                    td.o_td_label(colspan='1')
-                                        label.o_form_label
-                                            | Company
-                                    td(colspan='1', style='width: 100%;')
-                                        .o_form_field_many2one.o_form_field
-                                            select.selectb
-                                                option(value='volvo') Alupak Industriess
-                                                option(value='saab') My Company;wojjfp;ofo, Chicago
-                                                span.o_dropdown_button(draggable='false')
-                                            button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
+                                //tr
+                                //    td.o_td_label(colspan='1')
+                                //        label.o_form_label
+                                //            | Currency
+                                //    td(colspan='1', style='width: 100%;')
+                                //        .o_form_field_many2one.o_with_button.o_form_field.o_form_required
+                                //            select.selectb
+                                //                option(value='volvo') ERU
+                                //                option(value='saab') AED
+                                //                option(value='mercedes') USD
+                                //                option(value='audi') RS
+                                //                span.o_dropdown_button(draggable='false')
+                                //            button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button',data-toggle='modal', data-target='.bd-example-modal-lg')
+                                //tr
+                                //    td.o_td_label(colspan='1')
+                                //        label.o_form_label
+                                //            | Company
+                                //    td(colspan='1', style='width: 100%;')
+                                //        .o_form_field_many2one.o_form_field
+                                //            select.selectb
+                                //                option(value='volvo') Alupak Industriess
+                                //                option(value='saab') My Company;wojjfp;ofo, Chicago
+                                //                span.o_dropdown_button(draggable='false')
+                                //            button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
                                 tr
                                     td.o_td_label(colspan='1')
                                         label.o_form_label

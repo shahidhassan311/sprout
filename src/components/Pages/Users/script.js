@@ -9,11 +9,11 @@ export default{
         document.title = this.title;
         this.select();
         $(function () {
-            $("#action").hide();
             $("#changepassword").click(function () {
                 self.pwd_update();
                 window.location.href = "/setting/users";
             });
+            $("#action").hide();
             $(".checkBoxClass").click(function () {
                 if($(this).prop('checked')){
                     $("#action").show();

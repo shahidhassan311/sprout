@@ -1,6 +1,6 @@
 .container-fluid
     //button.btn.btn-primary(data-toggle='modal', data-target='.bd-example-modal-lg') Large modal
-    .modal.fade.bd-example-modal-lg(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true',v-bind:class="modal")
+    .modal.fade.bd-example-modal-lg#myModal_hd(tabindex='-1', role='dialog', data-backdrop="static" data-keyboard="false" aria-labelledby='myLargeModalLabel', aria-hidden='true',v-bind:class="modal")
         .modal-dialog.modal-lg(style='width: 1022px;max-width: 100%;')
             .modal-content
                 .modal-header
@@ -9,20 +9,26 @@
                 .modal-body
                     slot
                 .modal-footer(style='-webkit-justify-content: flex-start !important')
-                    button.btn.btn-sm.btn-primary.savebtn(type='button',v-if='save')
+                    button.btn.btn-sm.btn-primary.savebtn(v-if='save && saveTigger' v-on:click="saveTigger")
                         span Save
+                    button.btn.btn-sm.btn-primary.savebtn#savess(type='button',v-if='savemodal')
+                        span Saves
+                    button.btn.btn-sm.btn-primary(v-if='create_view_invoice && CreateViewInvoices' v-on:click="CreateViewInvoices" , style='border-color: #7c7bad;background-color: #7c7bad;color: white;')
+                        span Create and View Invoices
+                    button.btn.btn-sm.btn-primary(v-if='create_invoice && CreateInvoices' v-on:click="CreateInvoices" , style='border-color: #7c7bad;background-color: #7c7bad;color: white;')
+                        span Create Invoices
                     //button.btn.btn-primary.samobuttopcontroller2(type="button" class="btn btn-default" data-dismiss="modal") No Activitysas
-                    button.btn.btn-sm.btn-primary.savebtn(type='button',v-if='saveclose')
+                    button.btn.btn-sm.btn-primary.saveclose#saveclose(v-if='saveclose && SaveClose' v-on:click='SaveClose' style='border-color: #7c7bad;background-color: #7c7bad;color: white;')
                         span Save  & Close
-                    button.btn.btn-sm.btn-primary.savebtn(type='button',v-if='Ok')
+                    button.btn.btn-sm.btn-primary.savebtn(v-if='Ok')
                         span Ok
-                    button.btn.btn-sm.btn-primary.savebtn(type='button', v-if='savenew')
+                    button.btn.btn-sm.btn-primary.savebtn#savenew(v-if='savenew && SaveNew' v-on:click='SaveNew')
                         span Save & New
                     button.btn.btn-sm.btn-primary.savebtn(type='button', v-if='sheduaeactivity')
                         span Shedule Activity
                     button.btn.btn-sm.btn-primary.savebtn(type='button', v-if='noactivity' , class="btn btn-default" data-dismiss="modal")
                         span No Activity
-                    button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='discard', data-dismiss="modal")
+                    button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn#discard(type='button', v-if='discard', data-dismiss="modal")
                         span Discard
                     button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn#changepassword(type='button', v-if='password' style='background-color: rgb(108, 108, 158);color: white;')
                         span Change Password
@@ -32,7 +38,9 @@
                         span Close
                     button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='create', data-dismiss="modal",style='background-color: #8d8cd5;')
                         span Create
-                    button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='select', data-dismiss="modal",style='background-color: #8d8cd5;')
+                    button#selectbtn.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='select',v-bind:to="links.modalselectbtnlink", data-dismiss="modal",style='background-color: rgb(109, 111, 169);color: white;font-size: 17px;')
                         span Select
+                    //button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='select', data-dismiss="modal",style='background-color: #8d8cd5;')
+                    //    span Select
 
 

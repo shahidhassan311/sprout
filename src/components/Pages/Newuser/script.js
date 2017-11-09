@@ -4,12 +4,16 @@ export default{
         console.log("this is some check");
         $(function () {
             $("#save").click(function () {
-                self.$validator.validateAll().then(result => {
+                self.$validator.validateAll().then(
+                    result => {
                     if (!result) {
                         // validation failed.
+                        alert("error");
+                    }else{
+                        self.submit();
+                        window.location.href = "../setting/users";
                     }
-                    self.submit();
-                    window.location.href = "../setting/users";
+
                 });
             });
             $('#submitSaveBtn').on("click",function(){

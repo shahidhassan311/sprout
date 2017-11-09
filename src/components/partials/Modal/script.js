@@ -9,6 +9,7 @@ export default{
         "heading",
         "save",
         "saveclose",
+        "savemodal",
         "savenew",
         "discard",
         "sheduaeactivity",
@@ -18,6 +19,13 @@ export default{
         "create",
         "select",
         "password",
+        "saveTigger",
+        "CreateInvoices",
+        "create_view_invoice",
+        "create_invoice",
+        "SaveClose",
+        "SaveNew",
+        "CreateViewInvoices"
     ],
     data(){
         return {

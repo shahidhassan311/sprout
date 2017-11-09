@@ -1,6 +1,9 @@
 .quotation
     DashboardController(v-bind:save='false',v-bind:heading="salesorder",v-bind:createbtn='true',v-bind:importbtn='true', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='true',v-bind:secondbtn='true',v-bind:fifthbtn='true',v-bind:thirdbtn='true',v-bind:fourthbtn='true',v-bind:searchbar='true')
+        .col-sm-6(style='padding:0px;' ,slot='heading')
+            h4.samodashheading(style="font-size: 18px;") Sales Order
     TableMain(v-bind:tableheader='tableheader', v-bind:tabledata="tabledata", v-bind:tablefoot="tablefoot")
+
 
 
 

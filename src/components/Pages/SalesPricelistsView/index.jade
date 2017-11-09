@@ -1,5 +1,15 @@
 .salespricelists
-    DashboardController(v-bind:editbtn='true',v-bind:heading="pricelists",v-bind:createbtn='true', v-bind:links="btnlinks",v-bind:num1='false',v-bind:num2='false',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false')
+    DashboardController(v-bind:editbtn='true',v-bind:heading="pricelists",v-bind:createbtn='true', v-bind:links="btnlinks",v-bind:num1='false',v-bind:num2='false',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false',v-bind:actionbtn='true',v-bind:deletebtn='true',v-bind:duplicate='true')
+        .col-sm-6(style='padding:0px;' ,slot='heading')
+            h4.samodashheading(style="font-size: 18px;display: inline-block;padding-right: 5px;") Pricelists /
+            span {{price_name}}
+        span.o_pager_value(slot='page') {{counter}}
+            |  /
+            span.o_pager_limit(style="padding-right: 6px;") {{num}}
+
+            span.btn-group.btn-group-sm
+                button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous#num10(@click="counter--",style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='p')
+                button.fa.fa-chevron-right.btn.btn-icon.o_pager_next#num01(@click="counter++",style='background-color:white;border-color: #adadad;color: #4c4c4c;')(type='button', accesskey='n')
     Modal(v-bind:close='true',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg"')
         .modal-body.o_act_window(style='margin-left: -29px;margin-right: -30px;margin-top: -29px;')
             .o_form_view.o_form_editable
@@ -23,7 +33,7 @@
                                     td(colspan='1', style='width: 50%;')
                                         input#o_field_input_394.o_form_input.o_form_field.o_form_required(maxlength='3', type='text')
                                     td.o_td_label(colspan='1')
-                                        label.o_form_label.o_form_label_help(for='o_field_input_395', data-original-title='', title='')
+                                        label.o_form_label.o_form_label_help(data-original-title='', title='')
                                             | Current Rate
                                     td(colspan='1', style='width: 50%;')
                                         span.o_form_field.o_form_field_number 1.283400
@@ -42,7 +52,7 @@
                                             input#o_field_input_396.o_form_input.o_form_field.o_form_field_number(type='text')
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label(for='o_field_input_397')
+                                            label.o_form_label
                                                 | Decimal places
                                         td(colspan='1', style='width: 100%;')
                                             span.o_form_field.o_form_field_number 2
@@ -81,7 +91,7 @@
                                     span.o_stat_text.o_hover.text-danger Archive
                         .oe_title
                             h1
-                                span.o_form_field.o_form_required Public Pricelist
+                                span.o_form_field.o_form_required {{price_name}}
                                 button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
                         table.o_group.o_inner_group
                             tbody
@@ -90,54 +100,26 @@
                                         label.o_form_label.o_form_invisible
                                             | Discount policy
                                     td(colspan='1', style='width: 100%;')
-                                        span.o_form_field.o_form_invisible Discount included in the price
+                                        span.o_form_field.o_form_invisible
                                 tr
                                     td.o_td_label(colspan='1')
                                         label.o_form_label
-                                            | Currency
+                                            | Discount policy
                                     td(colspan='1', style='width: 100%;')
-                                        a.o_form_uri.o_form_field.o_form_required(href='#') USD
+                                        a.o_form_uri.o_form_field.o_form_required(href='#') {{discount_poli}}
                                 tr
                                     td.o_td_label(colspan='1')
-                                        label.o_form_label.o_form_label_empty.o_form_label_false
+                                        label.o_form_label.o_form_label_empty.o_form_label_false.o_form_invisible
                                             | Company
                                     td(colspan='1', style='width: 100%;')
-                                        a.o_form_uri.o_form_field.o_form_field_empty(href='#')
+                                        span.o_form_field.o_form_invisible
                                 tr
                                     td.o_td_label(colspan='1')
                                         label.o_form_label.o_form_label_empty
                                             | Country Groups
                                     td(colspan='1', style='width: 100%;')
-                                        .o_form_field.o_form_field_many2many.o_form_field_empty.o_view_manager_content
-                                            .o_x2m_control_panel
-                                                .o_cp_buttons
-                                                .o_cp_pager
-                                                    .o_hidden
-                                                        span.o_pager_value
-                                                        |  /
-                                                        span.o_pager_limit
-                                                        span.btn-group.btn-group-sm
-                                                            button.fa.fa-chevron-left.btn.btn-icon.o_pager_previous(type='button')
-                                                            button.fa.fa-chevron-right.btn.btn-icon.o_pager_next(type='button')
-                                            div
-                                                .table-responsive
-                                                    table.o_list_view.table.table-condensed.table-striped
-                                                        thead
-                                                            tr
-                                                                th.o_column_sortable(data-id='name')
-                                                                    | Name
-                                                        tfoot
-                                                            tr
-                                                                td
-                                                        tbody
-                                                            tr
-                                                                td(title='Name')  
-                                                            tr
-                                                                td(title='Name')  
-                                                            tr
-                                                                td(title='Name')  
-                                                            tr
-                                                                td(title='Name')  
+                                        .tableset
+                                            TableMain(v-bind:tableheader='tableheader', v-bind:tabledata="tabledata", v-bind:tablefoot="tablefooter")
 
 
 

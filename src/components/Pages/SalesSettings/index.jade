@@ -1,8 +1,88 @@
 .o_content.usamascroll
+    Modal(v-bind:close='true',v-bind:upgrade='true',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg1"')
+        .col-md-12(style='display: -webkit-inline-box;display: -webkit-box;')
+            .col-md-6
+                | Get this feature and much more with Sprout Enterprise!
+                ul.list-unstyled
+                    li
+                        i.fa.fa-check
+                        |  Access to all Enterprise Apps
+                    li
+                        i.fa.fa-check
+                        |  New design
+                    li
+                        i.fa.fa-check
+                        |  Mobile support
+                    li
+                        i.fa.fa-check
+                        |  Upgrade to future versions
+                    li
+                        i.fa.fa-check
+                        |  Bugfixes guarantee
+                    li
+                        a(href='https://4slash.com/pricing', target='_blank',style='color: #7c7bad;')
+                            i.fa.fa-plus
+                            |  And more
+            .col-md-6
+                img.img-responsive(draggable='false', src='http://192.168.25.105:8069/web/static/src/img/enterprise_upgrade.jpg', style='width: 323px;')
+    Modal(v-bind:close='true',v-bind:upgrade='true',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg2"')
+        .col-md-12(style='display: -webkit-inline-box;display: -webkit-box;')
+            .col-md-6
+                | Get this feature and much more with Sprout Enterprise!
+                ul.list-unstyled
+                    li
+                        i.fa.fa-check
+                        |  Access to all Enterprise Apps
+                    li
+                        i.fa.fa-check
+                        |  New design
+                    li
+                        i.fa.fa-check
+                        |  Mobile support
+                    li
+                        i.fa.fa-check
+                        |  Upgrade to future versions
+                    li
+                        i.fa.fa-check
+                        |  Bugfixes guarantee
+                    li
+                        a(href='https://4slash.com/pricing', target='_blank',style='color: #7c7bad;')
+                            i.fa.fa-plus
+                            |  And more
+            .col-md-6
+                img.img-responsive(draggable='false', src='http://192.168.25.105:8069/web/static/src/img/enterprise_upgrade.jpg', style='width: 323px;')
+    Modal(v-bind:close='true',v-bind:upgrade='true',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg3"',)
+        .col-md-12(style='display: -webkit-inline-box;display: -webkit-box;')
+            .col-md-6
+                | Get this feature and much more with Sprout Enterprise!
+                ul.list-unstyled
+                    li
+                        i.fa.fa-check
+                        |  Access to all Enterprise Apps
+                    li
+                        i.fa.fa-check
+                        |  New design
+                    li
+                        i.fa.fa-check
+                        |  Mobile support
+                    li
+                        i.fa.fa-check
+                        |  Upgrade to future versions
+                    li
+                        i.fa.fa-check
+                        |  Bugfixes guarantee
+                    li
+                        a(href='https://4slash.com/pricing', target='_blank',style='color: #7c7bad;')
+                            i.fa.fa-plus
+                            |  And more
+            .col-md-6
+                img.img-responsive(draggable='false', src='http://192.168.25.105:8069/web/static/src/img/enterprise_upgrade.jpg', style='width: 323px;')
+
+
     .o_view_manager_content
         .o_form_view.oe_form_configuration.o_form_nosheet.o_form_editable
             header
-                button.btn.btn-sm.oe_highlight(type='button')
+                button#apply.btn.btn-sm.oe_highlight(type='button')
                     span Apply
                 button.btn.btn-sm.oe_link(type='button')
                     span Cancel
@@ -18,30 +98,25 @@
                                 label.o_form_label
                                     | Leads Email Alias
                             td(colspan='1', style='width: 100%;')
-                                div
-                                    .o_form_invisible(attrs="{'invisible': [('alias_domain', 'in', ['localhost', '', False])]}")
-                                        p.text-muted
-                                            | Each sales team has an email alias that
-                                            | could be setup on the sales team form. You
-                                            | can setup a generic email alias to create
-                                            | incoming leads.
-                                        input.o_form_input.oe_inline.o_form_field(type='text')
-                                        span @
-                                        span.oe_inline.o_form_field localhost
+                                div(v-if="alias_domain !==''")
+                                    input(type='text', v-model='lead_email')
+                                    span @{{alias_domain}}
+                                div(v-else)
                                     div(attrs="{'invisible': [('alias_domain', 'not in', ['localhost', '', False])]}")
-                                        button.btn.btn-sm.oe_link(type='button')
+                                        a.btn.btn-sm.oe_link(href='/setting/generalsetting')
+                                        a.btn.btn-sm.oe_link(href='/setting/generalsetting')
                                             span Setup your domain alias
                         tr
                             td.o_td_label(colspan='1')
                                 label.o_form_label
-                                    | Leads
+                                    | leads
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio36_0.o_form_radio(type='radio', name='radio36', value='0')
+                                        input#radio36_0.o_form_radio(type='radio', name='radio36', value='0', v-model='leads')
                                         label.o_form_label(for='radio36_0') Each mail sent to the alias creates a new opportunity
                                     .o_radio_item
-                                        input#radio36_1.o_form_radio(type='radio', name='radio36', value='1')
+                                        input#radio36_1.o_form_radio(type='radio', name='radio36', value='1', v-model='leads')
                                         label.o_form_label(for='radio36_1')
                                             | Use leads if you need a qualification step before creating an opportunity or a customer
                         tr
@@ -52,12 +127,12 @@
                                 div
                                     .o_form_field.o_form_field_boolean.oe_inline
                                         .o_checkbox.o_form_field_boolean
-                                            input#o_field_input_8(type='checkbox', name='module_crm_voip')
+                                            input#o_field_input_8(type='checkbox', name='module_crm_voip', data-toggle='modal', data-target='.bd-example-modal-lg2')
                                             span
                                     label.o_form_label.o_form_label_help.o_form_invisible(for='o_field_input_8', data-original-title='', title='')
                                         | VoIP integration
-                                    span.label.label-primary.oe_inline Enterprise
-                                    a(href='https://www.odoo.com/slides/slide/voip-one-click-button-to-automate-calls-272', target='_blank')  More Info
+                                    span.badge.badge-default(style='background-color: #7c7bad;') Enterprise
+                                    a(href='https://www.odoo.com/slides/slide/voip-one-click-button-to-automate-calls-272', target='_blank', style='color: #7c7bad;font-size:14px;text-decoration: none;')  More Info
                 table.o_group.o_inner_group
                     tbody
                         tr
@@ -72,12 +147,12 @@
                                 div
                                     .o_form_field.o_form_field_boolean.oe_inline
                                         .o_checkbox.o_form_field_boolean
-                                            input#o_field_input_10(type='checkbox', name='module_website_sign')
+                                            input(type='checkbox' ,data-toggle='modal', data-target='.bd-example-modal-lg1')
                                             span
                                     label.o_form_label.o_form_invisible
                                         | Odoo Sign
-                                    span.label.label-primary.oe_inline Enterprise
-                                    a(href='https://www.odoo.com/page/sign', target='_blank')  More Info
+                                    span.badge.badge-default(style='background-color: #7c7bad;') Enterprise
+                                    a(href='https://www.odoo.com/page/sign', target='_blank', style='color: #7c7bad;font-size:14px;text-decoration: none;')  More Info
                 table.o_group.o_inner_group
                     tbody
                         tr
@@ -91,10 +166,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio37_0.o_form_radio(type='radio', name='radio37', value='0')
+                                        input#radio37_0.o_form_radio(type='radio', name='radio37', value='0', v-model='product_variant')
                                         label.o_form_label(for='radio37_0') No variants on products
                                     .o_radio_item
-                                        input#radio37_1.o_form_radio(type='radio', name='radio37', value='1')
+                                        input#radio37_1.o_form_radio(type='radio', name='radio37', value='1', v-model='product_variant')
                                         label.o_form_label(for='radio37_1')
                                             | Products can have several attributes, defining variants (Example: size, color,...)
                         tr
@@ -104,10 +179,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio38_0.o_form_radio(type='radio', name='radio38', value='0')
+                                        input#radio38_0.o_form_radio(type='radio', name='radio38', value='0', v-model='unit_measure')
                                         label.o_form_label(for='radio38_0') Products have only one unit of measure (easier)
                                     .o_radio_item
-                                        input#radio38_1.o_form_radio(type='radio', name='radio38', value='1')
+                                        input#radio38_1.o_form_radio(type='radio', name='radio38', value='1', v-model='unit_measure')
                                         label.o_form_label(for='radio38_1') Some products may be sold/purchased in different units of measure (advanced)
                         tr
                             td.o_td_label(colspan='1')
@@ -116,21 +191,19 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio39_order.o_form_radio(type='radio', name='radio39', value='order')
+                                        input#radio39_order.o_form_radio(type='radio', name='radio39', value='0', v-model='default_invoice')
                                         label.o_form_label(for='radio39_order') Invoice ordered quantities
                                     .o_radio_item
-                                        input#radio39_delivery.o_form_radio(type='radio', name='radio39', value='delivery')
+                                        input#radio39_delivery.o_form_radio(type='radio', name='radio39', value='1', v-model='default_invoice')
                                         label.o_form_label(for='radio39_delivery') Invoice delivered quantities
                         tr
                             td.o_td_label(colspan='1')
                                 label.o_form_label.o_form_label_help.oe_inline(for='o_field_input_14', data-original-title='', title='')
                                     | Deposit Product
                             td(colspan='1', style='width: 100%;')
-                                .o_form_field_many2one.oe_inline.o_form_field
-                                    .o_form_input_dropdown
-                                        input#o_field_input_14.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
-                                        span.o_dropdown_button(draggable='false')
-                                    button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
+                                select(v-model='current_company')
+                                    option(v-for='option in product_name_drop', v-bind:value="option.id")
+                                        | {{ option.name }}
                         tr
                             td.o_td_label(colspan='1')
                                 label.o_form_label
@@ -138,7 +211,7 @@
                             td(colspan='1', style='width: 100%;')
                                 div
                                     .o_checkbox.o_form_field_boolean.oe_inline.o_form_field
-                                        input#o_field_input_15(type='checkbox', name='module_website_sale_digital')
+                                        input#o_field_input_15(type='checkbox', name='module_website_sale_digital', value='Sell digital products - provide downloadable content on your customer portal' , v-model='digital_product')
                                         span
                                     label.o_form_label(for='o_field_input_15')
                                         | Sell digital products - provide downloadable content on your customer portal
@@ -156,13 +229,13 @@
                                 div
                                     .o_form_field_radio.o_vertical.oe_inline.o_form_field.o_form_required
                                         .o_radio_item
-                                            input#radio40_fixed.o_form_radio(type='radio', name='radio40', value='fixed')
+                                            input#radio40_fixed.o_form_radio(type='radio', name='radio40', value='fixed', v-model='sale_price')
                                             label.o_form_label(for='radio40_fixed') A single sale price per product
                                         .o_radio_item
-                                            input#radio40_percentage.o_form_radio(type='radio', name='radio40', value='percentage')
+                                            input#radio40_percentage.o_form_radio(type='radio', name='radio40', value='percentage', v-model='sale_price')
                                             label.o_form_label(for='radio40_percentage') Specific prices per customer segment, currency, etc.
                                         .o_radio_item
-                                            input#radio40_formula.o_form_radio(type='radio', name='radio40', value='formula')
+                                            input#radio40_formula.o_form_radio(type='radio', name='radio40', value='formula', v-model='sale_price')
                                             label.o_form_label(for='radio40_formula') Advanced pricing based on formulas (discounts, margins, rounding)
                                     .o_checkbox.o_form_field_boolean.oe_inline.o_form_field.o_form_invisible(data-original-title='', title='')
                                         input(type='checkbox', name='group_sale_pricelist')
@@ -194,7 +267,7 @@
                                 label.o_form_label
                                     | Default Terms and Conditions *
                             td(colspan='1', style='width: 100%;')
-                                textarea.o_form_textarea.o_form_field(rows='6', name='sale_note', style='height: 50px;')
+                                textarea.o_form_textarea.o_form_field(rows='6', name='sale_note', style='height: 50px;', v-model='default_terms')
                                 button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
                                 textarea.o_form_textarea.o_form_field(disabled='', style='position: absolute; opacity: 0; height: 10px; top: -10000px; left: -10000px; width: 1397px;')
                         tr
@@ -204,11 +277,11 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio41_0.o_form_radio(type='radio', name='radio41', value='0')
+                                        input#radio41_0.o_form_radio(type='radio', name='radio41', value='0', v-model='adresses')
                                         label.o_form_label(for='radio41_0')
                                             | Invoicing and shipping addresses are always the same (Example: services companies)
                                     .o_radio_item
-                                        input#radio41_1.o_form_radio(type='radio', name='radio41', value='1')
+                                        input#radio41_1.o_form_radio(type='radio', name='radio41', value='1', v-model='adresses')
                                         label.o_form_label(for='radio41_1') Display 3 fields on sales orders: customer, invoice address, delivery address
                         tr
                             td.o_td_label(colspan='1')
@@ -217,10 +290,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio42_0.o_form_radio(type='radio', name='radio42', value='0')
+                                        input#radio42_0.o_form_radio(type='radio', name='radio42', value='0', v-model='incoterms')
                                         label.o_form_label(for='radio42_0') No incoterm on reports
                                     .o_radio_item
-                                        input#radio42_1.o_form_radio(type='radio', name='radio42', value='1')
+                                        input#radio42_1.o_form_radio(type='radio', name='radio42', value='1', v-model='incoterms')
                                         label.o_form_label(for='radio42_1') Show incoterms on sales orders and invoices
                         tr
                             td.o_td_label(colspan='1')
@@ -229,10 +302,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio43_0.o_form_radio(type='radio', name='radio43', value='0')
+                                        input#radio43_0.o_form_radio(type='radio', name='radio43', value='0', v-model='discount')
                                         label.o_form_label(for='radio43_0') No discount on sales order lines, global discount only
                                     .o_radio_item
-                                        input#radio43_1.o_form_radio(type='radio', name='radio43', value='1')
+                                        input#radio43_1.o_form_radio(type='radio', name='radio43', value='1', v-model='discount')
                                         label.o_form_label(for='radio43_1') Allow discounts on sales order lines
                         tr
                             td.o_td_label(colspan='1')
@@ -241,10 +314,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio44_0.o_form_radio(type='radio', name='radio44', value='0')
+                                        input#radio44_0.o_form_radio(type='radio', name='radio44', value='0', v-model='margins')
                                         label.o_form_label(for='radio44_0') Salespeople do not need to view margins when quoting
                                     .o_radio_item
-                                        input#radio44_1.o_form_radio(type='radio', name='radio44', value='1')
+                                        input#radio44_1.o_form_radio(type='radio', name='radio44', value='1', v-model='margins')
                                         label.o_form_label(for='radio44_1') Display margins on quotations and sales orders
                         tr
                             td.o_td_label(colspan='1')
@@ -253,10 +326,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio45_0.o_form_radio(type='radio', name='radio45', value='0')
+                                        input#radio45_0.o_form_radio(type='radio', name='radio45', value='0', v-model='sales_layout')
                                         label.o_form_label(for='radio45_0') Do not personalize sales orders and invoice reports
                                     .o_radio_item
-                                        input#radio45_1.o_form_radio(type='radio', name='radio45', value='1')
+                                        input#radio45_1.o_form_radio(type='radio', name='radio45', value='1', v-model='sales_layout')
                                         label.o_form_label(for='radio45_1')
                                             | Personalize the sales orders and invoice report with categories, subtotals and page-breaks
                         tr
@@ -266,11 +339,11 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio46_0.o_form_radio(type='radio', name='radio46', value='0')
+                                        input#radio46_0.o_form_radio(type='radio', name='radio46', value='0', v-model='sales_modification')
                                         label.o_form_label(for='radio46_0')
                                             | Allow to edit sales order from the 'Sales Order' menu (not from the Quotation menu)
                                     .o_radio_item
-                                        input#radio46_1.o_form_radio(type='radio', name='radio46', value='1')
+                                        input#radio46_1.o_form_radio(type='radio', name='radio46', value='1', v-model='sales_modification')
                                         label.o_form_label(for='radio46_1') Never allow to modify a confirmed sales order
                         tr
                             td.o_td_label(colspan='1')
@@ -279,10 +352,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio47_0.o_form_radio(type='radio', name='radio47', value='0')
+                                        input#radio47_0.o_form_radio(type='radio', name='radio47', value='0', v-model='warning')
                                         label.o_form_label(for='radio47_0') All the products and the customers can be used in sales orders
                                     .o_radio_item
-                                        input#radio47_1.o_form_radio(type='radio', name='radio47', value='1')
+                                        input#radio47_1.o_form_radio(type='radio', name='radio47', value='1', v-model='warning')
                                         label.o_form_label(for='radio47_1') An informative or blocking warning can be set on a product or a customer
                         tr
                             td.o_td_label(colspan='1')
@@ -292,10 +365,10 @@
                                 div
                                     .o_form_field_radio.o_vertical.oe_inline.o_form_field.o_form_required
                                         .o_radio_item
-                                            input#radio48_subtotal.o_form_radio(type='radio', name='radio48', value='subtotal')
+                                            input#radio48_subtotal.o_form_radio(type='radio', name='radio48', value='subtotal', v-model='tax_total')
                                             label.o_form_label(for='radio48_subtotal') Show line subtotals without taxes (B2B)
                                         .o_radio_item
-                                            input#radio48_total.o_form_radio(type='radio', name='radio48', value='total')
+                                            input#radio48_total.o_form_radio(type='radio', name='radio48', value='total', v-model='tax_total')
                                             label.o_form_label(for='radio48_total') Show line subtotals with taxes included (B2C)
                                     .o_checkbox.o_form_field_boolean.oe_inline.o_form_field.o_form_invisible
                                         input(type='checkbox', name='group_show_price_subtotal')
@@ -311,12 +384,12 @@
                                 div
                                     .o_form_field.o_form_field_boolean.oe_inline
                                         .o_checkbox.o_form_field_boolean
-                                            input#o_field_input_28(type='checkbox', name='module_sale_contract')
+                                            input#o_field_input_28(type='checkbox', name='module_sale_contract', data-toggle='modal', data-target='.bd-example-modal-lg3')
                                             span
                                     label.o_form_label(for='o_field_input_28')
                                         | Manage subscriptions and recurring invoicing
-                                    span.label.label-primary.oe_inline Enterprise
-                                    a(href='https://www.odoo.com/page/subscriptions', target='_blank')  More Info
+                                    span.badge.badge-default(style='background-color: #7c7bad;') Enterprise
+                                    a(href='https://www.odoo.com/page/subscriptions', target='_blank', style='color: #7c7bad;font-size:14px;text-decoration: none;')  More Info
                         tr
                             td.o_td_label(colspan='1')
                                 label.o_form_label
@@ -324,10 +397,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio49_0.o_form_radio(type='radio', name='radio49', value='0')
+                                        input#radio49_0.o_form_radio(type='radio', name='radio49', value='0', v-model='order_routing')
                                         label.o_form_label(for='radio49_0') No order specific routes like MTO or drop shipping
                                     .o_radio_item
-                                        input#radio49_1.o_form_radio(type='radio', name='radio49', value='1')
+                                        input#radio49_1.o_form_radio(type='radio', name='radio49', value='1', v-model='order_routing')
                                         label.o_form_label(for='radio49_1') Choose specific routes on sales order lines (advanced)
                         tr
                             td.o_td_label(colspan='1')
@@ -349,10 +422,10 @@
                                 div
                                     .o_form_field_radio.o_vertical.oe_inline.o_form_field
                                         .o_radio_item
-                                            input#radio51_0.o_form_radio(type='radio', name='radio51', value='0')
+                                            input#radio51_0.o_form_radio(type='radio', name='radio51', value='0', v-model='date_no')
                                             label.o_form_label(for='radio51_0') Procurements and deliveries dates are based on the sales order dates
                                         .o_radio_item
-                                            input#radio51_1.o_form_radio(type='radio', name='radio51', value='1')
+                                            input#radio51_1.o_form_radio(type='radio', name='radio51', value='1', v-model='date_no')
                                             label.o_form_label(for='radio51_1') Allow to modify the sales order dates to postpone deliveries and procurements
                 table.o_group.o_inner_group
                     tbody
@@ -367,17 +440,17 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio52_0.o_form_radio(type='radio', name='radio52', value='0')
+                                        input#radio52_0.o_form_radio(type='radio', name='radio52', value='0', v-model='online_quotations')
                                         label.o_form_label(for='radio52_0') Print quotes or send by email
                                     .o_radio_item
-                                        input#radio52_1.o_form_radio(type='radio', name='radio52', value='1')
+                                        input#radio52_1.o_form_radio(type='radio', name='radio52', value='1', v-model='online_quotations')
                                         label.o_form_label(for='radio52_1') Send quotations your customer can approve & pay online (advanced)
                         tr
                             td.o_td_label(colspan='1')
                                 label.o_form_label.o_form_label_help(for='o_field_input_33', data-original-title='', title='')
                                     | Sales Safety Days *
                             td(colspan='1', style='width: 100%;')
-                                input#o_field_input_33.o_form_input.o_form_field.o_form_field_number(type='text')
+                                input#o_field_input_33.o_form_input.o_form_field.o_form_field_number(type='text', v-model='sales_safety')
                 table.o_group.o_inner_group
                     tbody
                         tr
@@ -391,10 +464,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio53_0.o_form_radio(type='radio', name='radio53', value='0')
+                                        input#radio53_0.o_form_radio(type='radio', name='radio53', value='0', v-model='shipping')
                                         label.o_form_label(for='radio53_0') No shipping costs on sales orders
                                     .o_radio_item
-                                        input#radio53_1.o_form_radio(type='radio', name='radio53', value='1')
+                                        input#radio53_1.o_form_radio(type='radio', name='radio53', value='1', v-model='shipping')
                                         label.o_form_label(for='radio53_1') Allow adding shipping costs
                         tr
                             td.o_td_label(colspan='1')
@@ -403,10 +476,10 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio54_0.o_form_radio(type='radio', name='radio54', value='0')
+                                        input#radio54_0.o_form_radio(type='radio', name='radio54', value='0', v-model='default_shipping')
                                         label.o_form_label(for='radio54_0') Ship products when some are available, and allow back orders
                                     .o_radio_item
-                                        input#radio54_1.o_form_radio(type='radio', name='radio54', value='1')
+                                        input#radio54_1.o_form_radio(type='radio', name='radio54', value='1', v-model='default_shipping')
                                         label.o_form_label(for='radio54_1') Ship all products at once, without back orders
             div
                 span (*) This configuration is related to the company you're logged into.

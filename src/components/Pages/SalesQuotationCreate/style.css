@@ -381,12 +381,8 @@ body {
     background-color: white;
 }
 .row{
-    width: 1586px;
+    /*width: 1586px;*/
 }
-
-
-
-
 
 
 
@@ -9988,7 +9984,7 @@ a.o_form_view .oe_form_box_info:hover, a.o_form_view .oe_form_box_info:focus {
 
 /* /web/static/src/less/form_view_extra.less defined in bundle 'web.assets_backend' */
 .o_form_view .o_form_sheet_bg {
-    background: url(/images/form_sheetbg.png);
+    background: url(/web/static/src/img/form_sheetbg.png);
     border-bottom: 1px solid #ddd;
 }
 
@@ -11536,5 +11532,97 @@ a.o_form_view .oe_form_box_info:hover, a.o_form_view .oe_form_box_info:focus {
 .samocontent{
     overflow: auto;
     height: 80vh;
+}
+
+
+.selectb
+{
+    width: 100%;
+    height: 36px;
+    border-radius: 6px;
+    background: #D2D2FF;
+}
+.st
+{
+    width: 100%;
+    height: 36px;
+    border-radius: 5px;
+    background-color: #D2D2FF;
+}
+.st1
+{
+    width: 304%;
+    height: 36px;
+    border-radius: 5px;
+    background-color: #D2D2FF;
+}
+.st2
+{
+    width: 91%;
+    height: 36px;
+    border-radius: 5px;
+    background-color: #D2D2FF;
+}
+
+.samotablehead{
+    color: #4c4c4c;
+    background-color: #eee;
+    border-bottom: 3px solid #cacaca;
+}
+.samotable tbody tr:nth-of-type(odd){
+    background-color: #efeff8;
+}
+
+.samotable{
+    font-size:13px;
+
+}
+.samotableheadborder{
+    border-right: 1px solid lightgrey;
+    line-height: normal;
+    vertical-align: middle;
+}
+
+.samotbody{
+
+    line-height: normal;
+}
+
+.samotablepadd{
+    vertical-align: middle;
+
+}
+a
+{
+    color: #4c4c4c;
+}
+
+.samofoot{
+    cursor: default;
+    color: #4c4c4c;
+    background-color: #eeeeee;
+    font-weight: bold;
+    border-top: 2px solid #cacaca;
+    border-bottom: 1px solid #cacaca;
+}
+
+#btn1{
+    width: 77px;
+}
+
+.dragbtn{
+    padding: 0px !important;
+}
+
+.productselect{
+    width: 80% !important;
+
+}
+a.active{
+    background-color: #7c7bad !important;
+    color:white !important;
+}
+a.focus{
+    border:none !important;
 }
 

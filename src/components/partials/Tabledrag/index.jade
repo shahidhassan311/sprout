@@ -13,7 +13,7 @@
             tr(v-for='tr in tabledata')
                 td.samotablepadd(width='1')
                     .o_checkbox
-                        input.checkBoxClass(type='checkbox')
+                        input.checkBoxClass(type='checkbox' v-bind:value="tr.data[0]")
                         span
                 td.fa.fa-arrows.pointer
                 td.samotablepadd( v-for='td in tr.data')
